@@ -1,11 +1,9 @@
-function LoginInput({ placeholder, type, id, value, onChange, err }) {
+function LoginInput({ placeholder, type, id, value, onChange }) {
   return (
     <input
       onChange={onChange}
       value={value[id]}
-      className={`outline-none px-4 py-1 border border-gray-300 rounded-sm ${
-        err && "border-red-500"
-      }`}
+      className="outline-none px-4 py-1 border border-gray-300 rounded-sm"
       type={type}
       id={id}
       placeholder={placeholder}

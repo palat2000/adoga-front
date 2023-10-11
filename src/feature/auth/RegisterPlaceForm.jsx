@@ -1,67 +1,26 @@
 import { useState } from "react";
-import Joi from "joi";
+import Loading from "../../components/Loading";
 import RegisterInput from "./RegisterInput";
 import Button from "../../components/Button";
-import useAuth from "../../hooks/useAuth";
-import Loading from "../../components/Loading";
-import { useNavigate } from "react-router-dom";
+import TypeInput from "./TypeInput";
+import { OPTION } from "../../config/constants";
 
-const registerSchema = Joi.object({
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required(),
-  email: Joi.string().email({ tlds: false }).required(),
-  password: Joi.string()
-    .pattern(/^[a-zA-Z0-9]{6,30}$/)
-    .trim()
-    .required(),
-  confirmPassword: Joi.string().valid(Joi.ref("password")).trim().required(),
-});
-
-const validate = (input) => {
-  const { error } = registerSchema.validate(input, { abortEarly: false });
-  let res;
-  if (error) {
-    res = error.details.reduce((acc, el) => {
-      acc[el.path[0]] = el.message;
-      return acc;
-    }, {});
-  }
-  return res;
-};
-
-function RegisterForm() {
+function RegisterPlaceForm() {
   const [input, setInput] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
+    mobile: "",
     password: "",
     confirmPassword: "",
   });
   const [validateMessage, setValidateMessage] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  const { register } = useAuth();
-
   const handleChange = (e) => {
     setInput({ ...input, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-      setValidateMessage({});
-      setIsLoading(true);
-      const res = validate(input);
-      if (res) {
-        return setValidateMessage(res);
-      }
-      await register(input);
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setIsLoading(false);
-    }
+    e.preventDefault();
   };
   return (
     <div className="relative">
@@ -69,29 +28,15 @@ function RegisterForm() {
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
           <RegisterInput
-            err={validateMessage.firstName}
-            text="ชื่อ"
+            err={validateMessage.name}
+            text="ชื่อที่พัก"
             type="text"
-            placeholder="ชื่อ"
-            id="firstName"
+            placeholder="ชื่อที่พัก"
+            id="name"
             value={input}
             onChange={handleChange}
           />
-          {validateMessage.firstName && (
-            <span className="text-xs text-red-500">
-              โปรดกรอกข้อมูลให้ครบถ้วน
-            </span>
-          )}
-          <RegisterInput
-            err={validateMessage.lastName}
-            text="นามสกุล"
-            type="text"
-            placeholder="นามสกุล"
-            id="lastName"
-            value={input}
-            onChange={handleChange}
-          />
-          {validateMessage.lastName && (
+          {validateMessage.name && (
             <span className="text-xs text-red-500">
               โปรดกรอกข้อมูลให้ครบถ้วน
             </span>
@@ -106,8 +51,27 @@ function RegisterForm() {
             onChange={handleChange}
           />
           {validateMessage.email && (
+            <span className="text-xs text-red-500">
+              โปรดกรอกข้อมูลให้ครบถ้วน
+            </span>
+          )}
+          <RegisterInput
+            err={validateMessage.mobile}
+            text="เบอร์โทรศัพท์"
+            type="text"
+            placeholder="เบอร์โทรศัพท์"
+            id="mobile"
+            value={input}
+            onChange={handleChange}
+          />
+          {validateMessage.mobile && (
             <span className="text-xs text-red-500">อีเมลไม่ถูกต้อง</span>
           )}
+          <TypeInput
+            title="ประเภทที่พัก"
+            defaultOption="ประเภทที่พัก..."
+            option={OPTION}
+          />
           <RegisterInput
             err={validateMessage.password}
             text="รหัสผ่าน"
@@ -135,7 +99,7 @@ function RegisterForm() {
         {validateMessage.confirmPassword && (
           <span className="text-xs text-red-500">รหัสผ่านไม่ตรงกัน</span>
         )}
-        <Button className="bg-primary text-white hover:opacity-80 transition-all">
+        <Button className="bg-secondary text-white hover:opacity-80 transition-all">
           สมัครสมาชิก
         </Button>
       </form>
@@ -143,4 +107,4 @@ function RegisterForm() {
   );
 }
 
-export default RegisterForm;
+export default RegisterPlaceForm;

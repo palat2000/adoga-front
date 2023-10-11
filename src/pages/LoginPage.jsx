@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function LoginPage() {
   const navigate = useNavigate();
   return (
-    <div className="bg-bgPrimary h-full flex justify-center items-center">
+    <div className="bg-bgPrimary h-full flex justify-center items-center py-10">
       <Box>
         <h2 className="text-2xl">เข้าสู่ระบบ</h2>
         <p>เพื่อความปลอดภัย กรุณาล็อกอินเข้าสู่ระบบเพื่อดูรายระเอียดของท่าน</p>
