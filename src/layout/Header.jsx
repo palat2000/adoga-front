@@ -29,7 +29,7 @@ function Header() {
           </Button>
           <Button
             onClick={() => navigate("/register-place")}
-            className="text-primary border border-primary hover:text-white hover:bg-primary transition-all"
+            className="text-secondary border border-secondary hover:text-white hover:bg-secondary transition-all"
           >
             สร้างบัญชีลงประกาศที่พัก
           </Button>

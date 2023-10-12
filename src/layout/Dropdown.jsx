@@ -1,8 +1,10 @@
 import IconProfile from "../components/IconProfile";
 import useDropdown from "../hooks/use-dropdown";
+import useAuth from "../hooks/useAuth";
 
 function Dropdown({ name }) {
   const { dropdownRef, isOpen, setIsOpen } = useDropdown();
+  const { logout } = useAuth();
   return (
     <div ref={dropdownRef} className="flex items-center gap-2 relative">
       <IconProfile
@@ -18,7 +20,10 @@ function Dropdown({ name }) {
           <div className="px-4 py-2 hover:bg-gray-200 rounded-sm cursor-pointer">
             ข้อมูลส่วนตัวของฉัน
           </div>
-          <div className="px-4 py-2 hover:bg-gray-200 rounded-sm cursor-pointer">
+          <div
+            onClick={logout}
+            className="px-4 py-2 hover:bg-gray-200 rounded-sm cursor-pointer"
+          >
             ออกจากระบบ
           </div>
         </div>

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Joi from "joi";
+import { useNavigate } from "react-router-dom";
 import RegisterInput from "./RegisterInput";
 import Button from "../../components/Button";
 import useAuth from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
-import { useNavigate } from "react-router-dom";
 
 const registerSchema = Joi.object({
   firstName: Joi.string().required(),
@@ -131,10 +131,11 @@ function RegisterForm() {
             value={input}
             onChange={handleChange}
           />
+
+          {validateMessage.confirmPassword && (
+            <span className="text-xs text-red-500">รหัสผ่านไม่ตรงกัน</span>
+          )}
         </div>
-        {validateMessage.confirmPassword && (
-          <span className="text-xs text-red-500">รหัสผ่านไม่ตรงกัน</span>
-        )}
         <Button className="bg-primary text-white hover:opacity-80 transition-all">
           สมัครสมาชิก
         </Button>

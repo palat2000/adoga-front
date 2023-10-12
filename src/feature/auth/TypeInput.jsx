@@ -1,20 +1,33 @@
-import { useState } from "react";
 import TypeItem from "./TypeItem";
 import useDropdown from "../../hooks/use-dropdown";
+import { useEffect } from "react";
 
-function TypeInput({ defaultOption, title, option = [] }) {
+function TypeInput({
+  defaultOption,
+  title,
+  option = [],
+  setType,
+  type,
+  validateMessage,
+}) {
   const DEFAULT = defaultOption;
-  const [value, setValue] = useState(DEFAULT);
   const { dropdownRef, isOpen, setIsOpen } = useDropdown();
+
+  useEffect(() => {
+    setType(DEFAULT);
+  }, []);
+
   return (
-    <div className="flex flex-col gap-2 -mt-2 relative">
+    <div className="flex flex-col gap-2 relative">
       <div>{title}</div>
       <div
         ref={dropdownRef}
         onClick={() => setIsOpen(!isOpen)}
-        className="flex justify-between items-center cursor-pointer border border-gray-300 shadow px-4 py-1 rounded-md"
+        className={`flex justify-between items-center cursor-pointer border border-gray-300 shadow px-4 py-1 rounded-md ${
+          validateMessage?.type && "border-red-300"
+        }`}
       >
-        <div>{value}</div>
+        <div>{type?.value || type}</div>
         <div>
           <svg
             width="1rem"
@@ -64,15 +77,18 @@ function TypeInput({ defaultOption, title, option = [] }) {
           </svg>
         </div>
       </div>
+      {validateMessage?.type && (
+        <span className="text-xs text-red-500">โปรดเลือกประเภทที่พัก</span>
+      )}
       {isOpen && (
         <div className="absolute top-[100%] border bg-white shadow-2xl rounded-sm w-full z-30 max-h-[200px] overflow-y-auto">
-          {option.map((option, index) => (
+          {option.map((option) => (
             <TypeItem
-              onClick={() => setValue(option)}
-              value={option}
-              key={index}
+              onClick={() => setType(option)}
+              value={option.key}
+              key={option.key}
             >
-              {option}
+              {option.value}
             </TypeItem>
           ))}
         </div>
