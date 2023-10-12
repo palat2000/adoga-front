@@ -8,6 +8,7 @@ export default {
         secondary: "#FF567D",
         darkBlue: "#35425B",
         bgPrimary: "#B6B5B5",
+        fontGray: "#787676",
       },
     },
   },

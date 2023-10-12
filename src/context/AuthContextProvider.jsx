@@ -6,10 +6,16 @@ export const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [initLoad, setInitLoad] = useState(true);
 
   useEffect(() => {
     if (localStorage.getItem("TOKEN")) {
-      axios.get("/auth/me").then((res) => setUser(res.data.user));
+      axios
+        .get("/auth/me")
+        .then((res) => setUser(res.data.user).catch((err) => console.log(err)))
+        .finally(() => setInitLoad(false));
+    } else {
+      setInitLoad(false);
     }
   }, []);
 
@@ -43,7 +49,7 @@ function AuthContextProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, register, registerPlace, logout }}
+      value={{ user, login, register, registerPlace, logout, initLoad }}
     >
       {children}
     </AuthContext.Provider>

@@ -103,14 +103,14 @@ function RegisterPlaceForm() {
           />
         </div>
         <div className="flex flex-col gap-4">
-          <LocationInput
+          {/* <LocationInput
             validateMessage={validateMessage}
             setSelected={setSelected}
             setClicked={setClicked}
             handleClick={handleClick}
             clicked={clicked}
             selected={selected}
-          />
+          /> */}
         </div>
         <Button className="bg-secondary text-white hover:opacity-80 transition-all">
           สมัครสมาชิก

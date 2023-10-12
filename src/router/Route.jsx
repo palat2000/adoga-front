@@ -4,6 +4,7 @@ import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import RegisterPlacerPage from "../pages/RegisterPlacerPage";
+import UserPlacePage from "../pages/UserPlacePage";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegisterPage /> },
       { path: "register-place", element: <RegisterPlacerPage /> },
+      { path: "user-place", element: <UserPlacePage /> },
     ],
   },
 ]);
