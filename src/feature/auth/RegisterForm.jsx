@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Joi from "joi";
 import { useNavigate } from "react-router-dom";
-import RegisterInput from "./RegisterInput";
+import Input from "../../components/Input";
 import Button from "../../components/Button";
 import useAuth from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
+import validate from "../../utils/validate";
 
 const registerSchema = Joi.object({
   firstName: Joi.string().required(),
@@ -16,18 +17,6 @@ const registerSchema = Joi.object({
     .required(),
   confirmPassword: Joi.string().valid(Joi.ref("password")).trim().required(),
 });
-
-const validate = (input) => {
-  const { error } = registerSchema.validate(input, { abortEarly: false });
-  let res;
-  if (error) {
-    res = error.details.reduce((acc, el) => {
-      acc[el.path[0]] = el.message;
-      return acc;
-    }, {});
-  }
-  return res;
-};
 
 function RegisterForm() {
   const [input, setInput] = useState({
@@ -51,7 +40,7 @@ function RegisterForm() {
       e.preventDefault();
       setValidateMessage({});
       setIsLoading(true);
-      const res = validate(input);
+      const res = validate(registerSchema, input);
       if (res) {
         return setValidateMessage(res);
       }
@@ -68,11 +57,10 @@ function RegisterForm() {
       {isLoading && <Loading />}
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
-          <RegisterInput
+          <Input
             err={validateMessage.firstName}
             text="ชื่อ"
             type="text"
-            placeholder="ชื่อ"
             id="firstName"
             value={input}
             onChange={handleChange}
@@ -82,11 +70,10 @@ function RegisterForm() {
               โปรดกรอกข้อมูลให้ครบถ้วน
             </span>
           )}
-          <RegisterInput
+          <Input
             err={validateMessage.lastName}
             text="นามสกุล"
             type="text"
-            placeholder="นามสกุล"
             id="lastName"
             value={input}
             onChange={handleChange}
@@ -96,11 +83,10 @@ function RegisterForm() {
               โปรดกรอกข้อมูลให้ครบถ้วน
             </span>
           )}
-          <RegisterInput
+          <Input
             err={validateMessage.email}
             text="อีเมล"
             type="text"
-            placeholder="อีเมล"
             id="email"
             value={input}
             onChange={handleChange}
@@ -108,11 +94,10 @@ function RegisterForm() {
           {validateMessage.email && (
             <span className="text-xs text-red-500">อีเมลไม่ถูกต้อง</span>
           )}
-          <RegisterInput
+          <Input
             err={validateMessage.password}
             text="รหัสผ่าน"
             type="password"
-            placeholder="รหัสผ่าน"
             id="password"
             value={input}
             onChange={handleChange}
@@ -122,11 +107,10 @@ function RegisterForm() {
               รหัสผ่านต้องไม่น้อยกว่า 6 และไม่มากกว่า 30 ตัวอักษร
             </span>
           )}
-          <RegisterInput
+          <Input
             err={validateMessage.confirmPassword}
             text="ยืนยันรหัสผ่าน"
             type="password"
-            placeholder="ยืนยันรหัสผ่าน"
             id="confirmPassword"
             value={input}
             onChange={handleChange}

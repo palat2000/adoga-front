@@ -1,17 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Info from "../feature/dashboard/Info";
 import ManageRoom from "../feature/dashboard/ManageRoom";
 import MenuItem from "../feature/dashboard/MenuItem";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import axios from "../config/axios";
 
 const OPTION = ["ข้อมูลที่พัก", "จัดการห้องพัก", "ข้อมูลการจอง"];
 
 function UserPlacePage() {
+  const [myRooms, setMyRooms] = useState([]);
   const [selected, setSelected] = useState(0);
   const [onOver, setOnOver] = useState(false);
   const navigate = useNavigate();
   const { logout } = useAuth();
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const {
+          data: { rooms },
+        } = await axios.get("/manage/my-rooms");
+        setMyRooms([...rooms]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetch();
+  }, []);
+
   return (
     <div className="bg-bgPrimary h-full flex justify-center">
       <div className="container my-4">
@@ -70,7 +87,7 @@ function UserPlacePage() {
           </div>
           <div className="col-span-4 xl:col-span-5 flex flex-col gap-7 text-fontGray text-lg">
             {selected === 0 && <Info />}
-            {selected === 1 && <ManageRoom />}
+            {selected === 1 && <ManageRoom myRooms={myRooms} />}
           </div>
         </div>
       </div>

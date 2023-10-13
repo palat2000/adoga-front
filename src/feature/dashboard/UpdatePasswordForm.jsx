@@ -1,9 +1,14 @@
 import { useState } from "react";
-import PasswordInput from "./PasswordInput";
 import Loading from "../../components/Loading";
 import ButtonForm from "./ButtonForm";
+import Input from "../../components/Input";
 
-function UpdatePasswordForm({ handleSubmit, errorMessage, isLoad, setIsOpen }) {
+function UpdatePasswordForm({
+  handleSubmit,
+  errorMessage,
+  isLoading,
+  setIsOpen,
+}) {
   const [input, setInput] = useState({
     password: "",
     newPassword: "",
@@ -15,7 +20,7 @@ function UpdatePasswordForm({ handleSubmit, errorMessage, isLoad, setIsOpen }) {
   };
   return (
     <div className="relative container w-full lg:w-[50%]">
-      {isLoad && <Loading />}
+      {isLoading && <Loading />}
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -23,33 +28,39 @@ function UpdatePasswordForm({ handleSubmit, errorMessage, isLoad, setIsOpen }) {
         }}
         className="flex flex-col gap-2"
       >
-        <PasswordInput
+        <Input
+          type="password"
           onChange={handleChange}
           value={input}
           id="password"
-          title="รหัสผ่านปัจจุบัน"
+          text="รหัสผ่านปัจจุบัน"
+          err={errorMessage.password}
         />
         {errorMessage.password && (
           <span className="text-red-500 text-xs">
             รหัสผ่านมีไม่น้อยกว่า 6 และไม่มากกว่า 30 ตัวอักษร
           </span>
         )}
-        <PasswordInput
+        <Input
+          type="password"
           onChange={handleChange}
           value={input}
           id="newPassword"
-          title="รหัสผ่านใหม่"
+          text="รหัสผ่านใหม่"
+          err={errorMessage.newPassword}
         />
         {errorMessage.newPassword && (
           <span className="text-red-500 text-xs">
             รหัสผ่านมีไม่น้อยกว่า 6 และไม่มากกว่า 30 ตัวอักษร
           </span>
         )}
-        <PasswordInput
+        <Input
+          type="password"
           onChange={handleChange}
           value={input}
           id="confirmNewPassword"
-          title="ยืนยันรหัสใหม่"
+          text="ยืนยันรหัสใหม่"
+          err={errorMessage.confirmNewPassword}
         />
         {errorMessage.confirmNewPassword && (
           <span className="text-red-500 text-xs">รหัสผ่านไม่ตรงกัน</span>

@@ -6,6 +6,7 @@ import EditAction from "./EditAction";
 import Frame from "./Frame";
 import UpdatePasswordForm from "./UpdatePasswordForm";
 import axios from "../../config/axios";
+import validate from "../../utils/validate";
 
 const changePasswordSchema = Joi.object({
   password: Joi.string()
@@ -22,29 +23,17 @@ const changePasswordSchema = Joi.object({
     .required(),
 });
 
-const validate = (input) => {
-  const { error } = changePasswordSchema.validate(input, { abortEarly: false });
-  let res;
-  if (error) {
-    res = error.details.reduce((acc, el) => {
-      acc[el.path[0]] = el.message;
-      return acc;
-    }, {});
-  }
-  return res;
-};
-
 function Info() {
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState({});
-  const [isLoad, setIsLoad] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
 
   const handleSubmit = async (input) => {
     try {
-      setIsLoad(true);
+      setIsLoading(true);
       setErrorMessage({});
-      const res = validate(input);
+      const res = validate(changePasswordSchema, input);
       if (res) {
         return setErrorMessage(res);
       }
@@ -53,7 +42,7 @@ function Info() {
     } catch (err) {
       console.log(err);
     } finally {
-      setIsLoad(false);
+      setIsLoading(false);
     }
   };
 
@@ -89,7 +78,7 @@ function Info() {
         ) : (
           <UpdatePasswordForm
             setIsOpen={setIsOpen}
-            isLoad={isLoad}
+            isLoading={isLoading}
             errorMessage={errorMessage}
             handleSubmit={handleSubmit}
           />

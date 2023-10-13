@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../../components/Button";
-import LoginInput from "./LoginInput";
 import Loading from "../../components/Loading";
+import Input from "../../components/Input";
 
 function LoginForm({ isLoading, handleSubmit, isFail, classButton }) {
   const [input, setInput] = useState({ mobileOrEmail: "", password: "" });
@@ -21,26 +21,20 @@ function LoginForm({ isLoading, handleSubmit, isFail, classButton }) {
         className="flex flex-col gap-6"
       >
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="mobileOrEmail">โทรศัพท์มือถือหรืออีเมล</label>
-            <LoginInput
-              onChange={handleChange}
-              value={input}
-              type="text"
-              id="mobileOrEmail"
-              placeholder="โทรศัพท์มือถือหรืออีเมล"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="password">รหัสผ่าน</label>
-            <LoginInput
-              onChange={handleChange}
-              value={input}
-              type="password"
-              id="password"
-              placeholder="รหัสผ่าน"
-            />
-          </div>
+          <Input
+            type="text"
+            value={input}
+            id="mobileOrEmail"
+            onChange={handleChange}
+            text="โทรศัพท์มือถือหรืออีเมล"
+          />
+          <Input
+            onChange={handleChange}
+            value={input}
+            type="password"
+            id="password"
+            text="รหัสผ่าน"
+          />
           {isFail && (
             <span className="text-xs text-red-500">ข้อมูลผู้ใช้ไม่ถูกต้อง</span>
           )}

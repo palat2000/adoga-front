@@ -7,6 +7,7 @@ import RegisterPlaceFormInput from "./RegisterPlaceFormInput";
 import LocationInput from "./LocationInput";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import validate from "../../utils/validate";
 
 const registerPlaceSchema = Joi.object({
   name: Joi.string().trim().required(),
@@ -26,18 +27,6 @@ const registerPlaceSchema = Joi.object({
   lat: Joi.number().required(),
   lng: Joi.number().required(),
 });
-
-const validate = (input) => {
-  const { error } = registerPlaceSchema.validate(input, { abortEarly: false });
-  let res;
-  if (error) {
-    res = error.details.reduce((acc, el) => {
-      acc[el.path[0]] = el.message;
-      return acc;
-    }, {});
-  }
-  return res;
-};
 
 function RegisterPlaceForm() {
   const [input, setInput] = useState({
@@ -75,7 +64,7 @@ function RegisterPlaceForm() {
       } else {
         data = { ...input, ...clicked, type: type?.key };
       }
-      const res = validate(data);
+      const res = validate(registerPlaceSchema, data);
       if (res) {
         return setValidateMessage(res);
       }
@@ -102,7 +91,7 @@ function RegisterPlaceForm() {
             type={type}
           />
         </div>
-        {/* <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
           <LocationInput
             validateMessage={validateMessage}
             setSelected={setSelected}
@@ -110,8 +99,8 @@ function RegisterPlaceForm() {
             handleClick={handleClick}
             clicked={clicked}
             selected={selected}
-          /> 
-        </div> */}
+          />
+        </div>
         <Button className="bg-secondary text-white hover:opacity-80 transition-all">
           สมัครสมาชิก
         </Button>

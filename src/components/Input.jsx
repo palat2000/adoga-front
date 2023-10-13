@@ -1,4 +1,4 @@
-function RegisterInput({ type, id, value, onChange, text, placeholder, err }) {
+function Input({ type, id, value, onChange, text, err }) {
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={id}>{text}</label>
@@ -10,10 +10,10 @@ function RegisterInput({ type, id, value, onChange, text, placeholder, err }) {
         id={id}
         value={value[id]}
         onChange={onChange}
-        placeholder={placeholder}
+        placeholder={text}
       />
     </div>
   );
 }
 
-export default RegisterInput;
+export default Input;

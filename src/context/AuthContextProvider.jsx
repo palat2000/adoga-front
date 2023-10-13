@@ -46,9 +46,9 @@ function AuthContextProvider({ children }) {
 
   const registerPlace = async (input) => {
     const {
-      data: { placer },
+      data: { user },
     } = await axios.post("/auth/register/place", input);
-    setUser(placer);
+    setUser(user);
   };
 
   const logout = () => {

@@ -1,4 +1,4 @@
-import RegisterInput from "./RegisterInput";
+import Input from "../../components/Input";
 import TypeInput from "./TypeInput";
 
 function RegisterPlaceFormInput({
@@ -11,11 +11,10 @@ function RegisterPlaceFormInput({
 }) {
   return (
     <>
-      <RegisterInput
+      <Input
         err={validateMessage.name}
         text="ชื่อที่พัก"
         type="text"
-        placeholder="ชื่อที่พัก"
         id="name"
         value={input}
         onChange={handleChange}
@@ -23,11 +22,10 @@ function RegisterPlaceFormInput({
       {validateMessage.name && (
         <span className="text-xs text-red-500">โปรดกรอกข้อมูลให้ครบถ้วน</span>
       )}
-      <RegisterInput
+      <Input
         err={validateMessage.email}
         text="อีเมล"
         type="text"
-        placeholder="อีเมล"
         id="email"
         value={input}
         onChange={handleChange}
@@ -35,11 +33,10 @@ function RegisterPlaceFormInput({
       {validateMessage.email && (
         <span className="text-xs text-red-500">โปรดกรอกข้อมูลให้ครบถ้วน</span>
       )}
-      <RegisterInput
+      <Input
         err={validateMessage.mobile}
         text="เบอร์โทรศัพท์"
         type="text"
-        placeholder="เบอร์โทรศัพท์"
         id="mobile"
         value={input}
         onChange={handleChange}
@@ -55,11 +52,10 @@ function RegisterPlaceFormInput({
         type={type}
         validateMessage={validateMessage}
       />
-      <RegisterInput
+      <Input
         err={validateMessage.password}
         text="รหัสผ่าน"
         type="password"
-        placeholder="รหัสผ่าน"
         id="password"
         value={input}
         onChange={handleChange}
@@ -69,11 +65,10 @@ function RegisterPlaceFormInput({
           รหัสผ่านต้องไม่น้อยกว่า 6 และไม่มากกว่า 30 ตัวอักษร
         </span>
       )}
-      <RegisterInput
+      <Input
         err={validateMessage.confirmPassword}
         text="ยืนยันรหัสผ่าน"
         type="password"
-        placeholder="ยืนยันรหัสผ่าน"
         id="confirmPassword"
         value={input}
         onChange={handleChange}
