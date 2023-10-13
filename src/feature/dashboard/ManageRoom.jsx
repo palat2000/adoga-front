@@ -1,18 +1,25 @@
+import { useState } from "react";
+import Button from "../../components/Button";
 import Frame from "./Frame";
-import Picture from "./Picture";
+import Room from "./Room";
 
 function ManageRoom() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <Frame className="relative">
-        <Picture src="https://img.freepik.com/free-photo/mockup-frames-living-room-interior-with-chair-decorscandinavian-style_41470-5148.jpg?w=826&t=st=1697126624~exp=1697127224~hmac=a975abfe92275ba006ab2dd4064c5d4c380053786307a64a07fb415027c3c150" />
-      </Frame>
-      <Frame className="relative">
-        <Picture src="https://img.freepik.com/free-photo/mockup-frames-living-room-interior-with-chair-decorscandinavian-style_41470-5148.jpg?w=826&t=st=1697126624~exp=1697127224~hmac=a975abfe92275ba006ab2dd4064c5d4c380053786307a64a07fb415027c3c150" />
-      </Frame>
-      <Frame className="relative">
-        <Picture src="https://img.freepik.com/free-photo/mockup-frames-living-room-interior-with-chair-decorscandinavian-style_41470-5148.jpg?w=826&t=st=1697126624~exp=1697127224~hmac=a975abfe92275ba006ab2dd4064c5d4c380053786307a64a07fb415027c3c150" />
-      </Frame>
+      <Room />
+      <Room />
+      <Room />
+      {isOpen ? (
+        <Frame></Frame>
+      ) : (
+        <Button
+          onClick={() => setIsOpen(true)}
+          className="text-white px-4 py-2 bg-secondary self-start"
+        >
+          เพิ่มห้องพัก
+        </Button>
+      )}
     </>
   );
 }

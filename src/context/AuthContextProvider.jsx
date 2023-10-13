@@ -12,7 +12,8 @@ function AuthContextProvider({ children }) {
     if (localStorage.getItem("TOKEN")) {
       axios
         .get("/auth/me")
-        .then((res) => setUser(res.data.user).catch((err) => console.log(err)))
+        .then((res) => setUser(res.data.user))
+        .catch((err) => console.log(err))
         .finally(() => setInitLoad(false));
     } else {
       setInitLoad(false);
@@ -23,6 +24,14 @@ function AuthContextProvider({ children }) {
     const {
       data: { token, user },
     } = await axios.post("/auth/login", input);
+    setUser(user);
+    localStorage.setItem("TOKEN", token);
+  };
+
+  const loginPlace = async (input) => {
+    const {
+      data: { token, user },
+    } = await axios.post("/auth/login/place", input);
     setUser(user);
     localStorage.setItem("TOKEN", token);
   };
@@ -49,7 +58,15 @@ function AuthContextProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, register, registerPlace, logout, initLoad }}
+      value={{
+        user,
+        login,
+        register,
+        registerPlace,
+        logout,
+        initLoad,
+        loginPlace,
+      }}
     >
       {children}
     </AuthContext.Provider>

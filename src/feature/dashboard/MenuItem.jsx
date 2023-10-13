@@ -1,6 +1,8 @@
-function MenuItem({ children, onClick, className }) {
+function MenuItem({ children, onClick, className, onMouseOver, onMouseLeave }) {
   return (
     <div
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
       onClick={onClick}
       className={`py-2 px-4 hover:text-white hover:bg-secondary transition-all cursor-pointer ${className}`}
     >

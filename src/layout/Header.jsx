@@ -8,12 +8,14 @@ function Header() {
   const navigate = useNavigate();
   return (
     <header className="flex justify-between px-10 py-3 items-center bg-white sticky top-0 z-50">
-      <div onClick={() => navigate("/")} className="cursor-pointer text-4xl">
-        Adoga
-      </div>
-      {user ? (
-        <Dropdown name={user.firstName} />
+      {!user?.isPlacer ? (
+        <div onClick={() => navigate("/")} className="cursor-pointer text-4xl">
+          Adoga
+        </div>
       ) : (
+        <div className="cursor-default text-4xl">Adoga</div>
+      )}
+      {!user ? (
         <div className="flex gap-5 text-lg">
           <Button
             onClick={() => navigate("/login")}
@@ -34,6 +36,10 @@ function Header() {
             สร้างบัญชีลงประกาศที่พัก
           </Button>
         </div>
+      ) : user.isPlacer ? (
+        <></>
+      ) : (
+        <Dropdown name={user.firstName} />
       )}
     </header>
   );

@@ -80,7 +80,7 @@ function RegisterPlaceForm() {
         return setValidateMessage(res);
       }
       await registerPlace(data);
-      navigate("/");
+      navigate("/user-place");
     } catch (err) {
       console.log(err);
     } finally {
@@ -102,16 +102,16 @@ function RegisterPlaceForm() {
             type={type}
           />
         </div>
-        <div className="flex flex-col gap-4">
-          {/* <LocationInput
+        {/* <div className="flex flex-col gap-4">
+          <LocationInput
             validateMessage={validateMessage}
             setSelected={setSelected}
             setClicked={setClicked}
             handleClick={handleClick}
             clicked={clicked}
             selected={selected}
-          /> */}
-        </div>
+          /> 
+        </div> */}
         <Button className="bg-secondary text-white hover:opacity-80 transition-all">
           สมัครสมาชิก
         </Button>
