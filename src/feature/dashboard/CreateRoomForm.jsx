@@ -1,5 +1,11 @@
 function CreateRoomForm() {
-  return <div>CreateRoomForm</div>;
+  return (
+    <div>
+      <form>
+        <input type="text" />
+      </form>
+    </div>
+  );
 }
 
 export default CreateRoomForm;
