@@ -4,14 +4,23 @@ import ButtonForm from "./ButtonForm";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 
-function CreateRoomForm({ errorMessage, setIsOpen, handleSubmit, isLoading }) {
-  const [input, setInput] = useState({
-    price: "",
-    desc: "",
-    maximumNumberPeople: "",
-    name: "",
-    totalRoomCount: "",
-  });
+function RoomForm({
+  errorMessage,
+  onClose,
+  handleSubmit,
+  isLoading,
+  info,
+  isEdit,
+}) {
+  const [input, setInput] = useState(
+    info || {
+      price: "",
+      desc: "",
+      maximumNumberPeople: "",
+      name: "",
+      totalRoomCount: "",
+    }
+  );
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.id]: e.target.value });
@@ -27,6 +36,7 @@ function CreateRoomForm({ errorMessage, setIsOpen, handleSubmit, isLoading }) {
         className="flex flex-col gap-2"
       >
         <Input
+          err={errorMessage?.name}
           onChange={handleChange}
           text="ชื่อห้อง"
           id="name"
@@ -34,6 +44,7 @@ function CreateRoomForm({ errorMessage, setIsOpen, handleSubmit, isLoading }) {
         />
         {errorMessage?.name && <ErrorMessage text="กรุณาใส่ชื่อห้อง" />}
         <Input
+          err={errorMessage?.totalRoomCount}
           onChange={handleChange}
           text="จำนวนห้อง"
           id="totalRoomCount"
@@ -42,7 +53,22 @@ function CreateRoomForm({ errorMessage, setIsOpen, handleSubmit, isLoading }) {
         {errorMessage?.totalRoomCount && (
           <ErrorMessage text="กรุณาใส่จำนวนห้อง" />
         )}
+        {isEdit && (
+          <>
+            <Input
+              err={errorMessage.remaining}
+              onChange={handleChange}
+              text="จำนวนห้องคงเหลือ"
+              id="remaining"
+              value={input}
+            />
+            {errorMessage?.remaining && (
+              <ErrorMessage text={errorMessage.remaining} />
+            )}
+          </>
+        )}
         <Input
+          err={errorMessage?.maximumNumberPeople}
           onChange={handleChange}
           text="เข้าพักได้สูงสุดคนต่อห้อง"
           id="maximumNumberPeople"
@@ -52,6 +78,7 @@ function CreateRoomForm({ errorMessage, setIsOpen, handleSubmit, isLoading }) {
           <ErrorMessage text="กรุณาใส่จำนวนสูงสุด" />
         )}
         <Input
+          err={errorMessage?.price}
           onChange={handleChange}
           text="ราคาต่อคืน"
           id="price"
@@ -59,6 +86,7 @@ function CreateRoomForm({ errorMessage, setIsOpen, handleSubmit, isLoading }) {
         />
         {errorMessage?.price && <ErrorMessage text="กรุณาใส่ราคา" />}
         <Input
+          err={errorMessage?.desc}
           onChange={handleChange}
           text="รายละเอียดห้องพัก"
           id="desc"
@@ -67,10 +95,10 @@ function CreateRoomForm({ errorMessage, setIsOpen, handleSubmit, isLoading }) {
         {errorMessage?.desc && (
           <ErrorMessage text="กรุณาใส่รายละเอียดห้องพัก" />
         )}
-        <ButtonForm setIsOpen={setIsOpen} />
+        <ButtonForm onClose={onClose} />
       </form>
     </div>
   );
 }
 
-export default CreateRoomForm;
+export default RoomForm;

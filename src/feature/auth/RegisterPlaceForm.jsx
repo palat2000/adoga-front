@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Joi from "joi";
 import Loading from "../../components/Loading";
 import Button from "../../components/Button";
@@ -6,7 +7,6 @@ import { OPTION } from "../../config/constants";
 import RegisterPlaceFormInput from "./RegisterPlaceFormInput";
 import LocationInput from "./LocationInput";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
 import validate from "../../utils/validate";
 
 const registerPlaceSchema = Joi.object({
@@ -92,14 +92,14 @@ function RegisterPlaceForm() {
           />
         </div>
         <div className="flex flex-col gap-4">
-          <LocationInput
+          {/* <LocationInput
             validateMessage={validateMessage}
             setSelected={setSelected}
             setClicked={setClicked}
             handleClick={handleClick}
             clicked={clicked}
             selected={selected}
-          />
+          /> */}
         </div>
         <Button className="bg-secondary text-white hover:opacity-80 transition-all">
           สมัครสมาชิก

@@ -3,7 +3,7 @@ import Joi from "joi";
 import Button from "../../components/Button";
 import Frame from "./Frame";
 import Room from "./Room";
-import CreateRoomForm from "./CreateRoomForm";
+import RoomForm from "./RoomForm";
 import axios from "../../config/axios";
 import validate from "../../utils/validate";
 
@@ -15,11 +15,11 @@ const roomSchema = Joi.object({
   totalRoomCount: Joi.number().required(),
 });
 
-function ManageRoom({ myRooms }) {
-  const [myRoomsArr, setMyRoomsArr] = useState(myRooms);
+function ManageRoom({ myRooms, setMyRooms }) {
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [editId, setEditId] = useState(null);
 
   const handleSubmit = async (input) => {
     try {
@@ -29,9 +29,38 @@ function ManageRoom({ myRooms }) {
       if (res) {
         return setErrorMessage(res);
       }
-      const { data: room } = await axios.post("/manage/create-room", input);
-      setMyRoomsArr([room, ...myRoomsArr]);
+      const {
+        data: { room },
+      } = await axios.post("/manage/create-room", input);
+      setMyRooms([room, ...myRooms]);
       setIsOpen(false);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleEdit = async (input) => {
+    try {
+      setIsLoading(true);
+      setErrorMessage({});
+      if (input.remaining > input.totalRoomCount) {
+        return setErrorMessage({
+          remaining: "จำนวนห้องคงเหลือไม่สามารถมากกว่าจำนวนห้องทั้งหมดได้",
+        });
+      }
+      if (input.remaining < 0) {
+        return setErrorMessage({
+          remaining: "จำนวนห้องคงเหลือไม่สามารถน้อยกว่า 0",
+        });
+      }
+      const newMyRooms = [...myRooms];
+      const index = newMyRooms.findIndex((room) => room.id === input.id);
+      newMyRooms.splice(index, 1, input);
+      setMyRooms(newMyRooms);
+      await axios.patch(`/manage/update-room/${input.id}`, input);
+      setEditId(null);
     } catch (err) {
       console.log(err);
     } finally {
@@ -43,9 +72,12 @@ function ManageRoom({ myRooms }) {
     <>
       {isOpen ? (
         <Frame>
-          <CreateRoomForm
+          <RoomForm
             isLoading={isLoading}
-            setIsOpen={setIsOpen}
+            onClose={() => {
+              setIsOpen(false);
+              setErrorMessage({});
+            }}
             handleSubmit={handleSubmit}
             errorMessage={errorMessage}
           />
@@ -58,8 +90,15 @@ function ManageRoom({ myRooms }) {
           เพิ่มห้องพัก
         </Button>
       )}
-      {myRoomsArr.map((room) => (
-        <Room room={room} key={room.id} />
+      {myRooms.map((room) => (
+        <Room
+          errorMessage={errorMessage}
+          handleEdit={handleEdit}
+          setEditId={setEditId}
+          editId={editId}
+          room={room}
+          key={room.id}
+        />
       ))}
     </>
   );

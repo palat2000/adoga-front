@@ -87,7 +87,9 @@ function UserPlacePage() {
           </div>
           <div className="col-span-4 xl:col-span-5 flex flex-col gap-7 text-fontGray text-lg">
             {selected === 0 && <Info />}
-            {selected === 1 && <ManageRoom myRooms={myRooms} />}
+            {selected === 1 && (
+              <ManageRoom myRooms={myRooms} setMyRooms={setMyRooms} />
+            )}
           </div>
         </div>
       </div>
