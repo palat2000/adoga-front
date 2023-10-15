@@ -8,6 +8,7 @@ import RegisterPlaceFormInput from "./RegisterPlaceFormInput";
 import LocationInput from "./LocationInput";
 import useAuth from "../../hooks/useAuth";
 import validate from "../../utils/validate";
+import PictureForm from "./PictureForm";
 
 const registerPlaceSchema = Joi.object({
   name: Joi.string().trim().required(),
@@ -40,6 +41,7 @@ function RegisterPlaceForm() {
   const [validateMessage, setValidateMessage] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [clicked, setClicked] = useState(null);
+  const [file, setFile] = useState(null);
   const [selected, setSelected] = useState(null);
   const navigate = useNavigate();
 
@@ -64,11 +66,24 @@ function RegisterPlaceForm() {
       } else {
         data = { ...input, ...clicked, type: type?.key };
       }
+      if (!file) {
+        return setValidateMessage({ file: "โปรดเลือกรูปภาพ" });
+      }
       const res = validate(registerPlaceSchema, data);
       if (res) {
         return setValidateMessage(res);
       }
-      await registerPlace(data);
+      const formData = new FormData();
+      formData.append("imagePlace", file);
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("mobile", data.mobile);
+      formData.append("password", data.password);
+      formData.append("confirmPassword", data.confirmPassword);
+      formData.append("lat", data.lat);
+      formData.append("lng", data.lng);
+      formData.append("type", data.type);
+      await registerPlace(formData);
       navigate("/user-place");
     } catch (err) {
       console.log(err);
@@ -91,15 +106,20 @@ function RegisterPlaceForm() {
             type={type}
           />
         </div>
+        <PictureForm
+          setFile={setFile}
+          file={file}
+          validateMessage={validateMessage}
+        />
         <div className="flex flex-col gap-4">
-          {/* <LocationInput
+          <LocationInput
             validateMessage={validateMessage}
             setSelected={setSelected}
             setClicked={setClicked}
             handleClick={handleClick}
             clicked={clicked}
             selected={selected}
-          /> */}
+          />
         </div>
         <Button className="bg-secondary text-white hover:opacity-80 transition-all">
           สมัครสมาชิก

@@ -13,7 +13,6 @@ function AuthContextProvider({ children }) {
       axios
         .get("/auth/me")
         .then((res) => setUser(res.data.user))
-        .catch((err) => console.log(err))
         .finally(() => setInitLoad(false));
     } else {
       setInitLoad(false);
@@ -46,9 +45,10 @@ function AuthContextProvider({ children }) {
 
   const registerPlace = async (input) => {
     const {
-      data: { user },
+      data: { user, token },
     } = await axios.post("/auth/register/place", input);
     setUser(user);
+    localStorage.setItem("TOKEN", token);
   };
 
   const logout = () => {
