@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import SearchForm from "../feature/search/SearchForm";
 import TypeSearch from "../feature/search/TypeSearch";
 import useAuth from "../hooks/useAuth";
@@ -25,10 +26,18 @@ function HomePage() {
       <div className="flex flex-col items-center py-20 gap-14">
         <div className="text-4xl">ดูห้องพักในรูปแบบต่างๆ</div>
         <div className="flex gap-10 justify-between container">
-          <TypeSearch />
-          <TypeSearch />
-          <TypeSearch />
-          <TypeSearch />
+          <Link to="search-place?type=hotel">
+            <TypeSearch />
+          </Link>
+          <Link to="search-place?type=VILLA">
+            <TypeSearch />
+          </Link>
+          <Link to="search-place?type=vacation_home">
+            <TypeSearch />
+          </Link>
+          <Link to="search-place?type=conDo_ApartMent">
+            <TypeSearch />
+          </Link>
         </div>
       </div>
     </div>
