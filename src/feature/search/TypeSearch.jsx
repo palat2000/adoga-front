@@ -3,7 +3,7 @@ function TypeSearch({ type }) {
     <div className="border border-bgGray hover:shadow-xl hover:border-fontGray flex flex-col items-center cursor-pointer">
       <div>
         <img
-          src="https://img.freepik.com/free-photo/building-night_1127-3365.jpg?w=1380&t=st=1697444981~exp=1697445581~hmac=b3ddbcc0666f38acdb22cc9e952644781ddd82b01245ebd5fcda300352b79864"
+          src="https://img.freepik.com/free-photo/aerial-shot-aria-hotel-las-vegas_181624-42881.jpg?w=1060&t=st=1697449512~exp=1697450112~hmac=f796c229117e6a8ec819c4931455534042cc1324fb53c140ae0d5747f6df8a95"
           alt=""
         />
       </div>
