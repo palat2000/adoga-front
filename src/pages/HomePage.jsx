@@ -1,146 +1,36 @@
+import SearchForm from "../feature/search/SearchForm";
+import TypeSearch from "../feature/search/TypeSearch";
+import useAuth from "../hooks/useAuth";
+
 function HomePage() {
+  const { user } = useAuth();
   return (
-    <div>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae sint
-        enim, voluptatem aperiam sapiente nihil assumenda? Blanditiis accusamus
-        facere vitae provident molestias illo incidunt deleniti. Eaque vel quae
-        laudantium tempora exercitationem delectus enim nostrum reprehenderit
-        numquam atque odit error, hic voluptatem recusandae nihil. Cum eius
-        perspiciatis cumque incidunt voluptates distinctio dolores quasi officia
-        eos, tempora quia amet vero dolorem fugiat quod. Rem amet dignissimos
-        mollitia iste praesentium. Optio, veniam ipsa. Quidem, tempora itaque!
-        Vero eveniet fugit tempora, culpa possimus in qui veritatis deserunt
-        eius exercitationem vel fuga magnam velit ex quae, ducimus
-        necessitatibus voluptatibus est suscipit odit error, voluptates
-        adipisci?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae sint
-        enim, voluptatem aperiam sapiente nihil assumenda? Blanditiis accusamus
-        facere vitae provident molestias illo incidunt deleniti. Eaque vel quae
-        laudantium tempora exercitationem delectus enim nostrum reprehenderit
-        numquam atque odit error, hic voluptatem recusandae nihil. Cum eius
-        perspiciatis cumque incidunt voluptates distinctio dolores quasi officia
-        eos, tempora quia amet vero dolorem fugiat quod. Rem amet dignissimos
-        mollitia iste praesentium. Optio, veniam ipsa. Quidem, tempora itaque!
-        Vero eveniet fugit tempora, culpa possimus in qui veritatis deserunt
-        eius exercitationem vel fuga magnam velit ex quae, ducimus
-        necessitatibus voluptatibus est suscipit odit error, voluptates
-        adipisci?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae sint
-        enim, voluptatem aperiam sapiente nihil assumenda? Blanditiis accusamus
-        facere vitae provident molestias illo incidunt deleniti. Eaque vel quae
-        laudantium tempora exercitationem delectus enim nostrum reprehenderit
-        numquam atque odit error, hic voluptatem recusandae nihil. Cum eius
-        perspiciatis cumque incidunt voluptates distinctio dolores quasi officia
-        eos, tempora quia amet vero dolorem fugiat quod. Rem amet dignissimos
-        mollitia iste praesentium. Optio, veniam ipsa. Quidem, tempora itaque!
-        Vero eveniet fugit tempora, culpa possimus in qui veritatis deserunt
-        eius exercitationem vel fuga magnam velit ex quae, ducimus
-        necessitatibus voluptatibus est suscipit odit error, voluptates
-        adipisci?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae sint
-        enim, voluptatem aperiam sapiente nihil assumenda? Blanditiis accusamus
-        facere vitae provident molestias illo incidunt deleniti. Eaque vel quae
-        laudantium tempora exercitationem delectus enim nostrum reprehenderit
-        numquam atque odit error, hic voluptatem recusandae nihil. Cum eius
-        perspiciatis cumque incidunt voluptates distinctio dolores quasi officia
-        eos, tempora quia amet vero dolorem fugiat quod. Rem amet dignissimos
-        mollitia iste praesentium. Optio, veniam ipsa. Quidem, tempora itaque!
-        Vero eveniet fugit tempora, culpa possimus in qui veritatis deserunt
-        eius exercitationem vel fuga magnam velit ex quae, ducimus
-        necessitatibus voluptatibus est suscipit odit error, voluptates
-        adipisci?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae sint
-        enim, voluptatem aperiam sapiente nihil assumenda? Blanditiis accusamus
-        facere vitae provident molestias illo incidunt deleniti. Eaque vel quae
-        laudantium tempora exercitationem delectus enim nostrum reprehenderit
-        numquam atque odit error, hic voluptatem recusandae nihil. Cum eius
-        perspiciatis cumque incidunt voluptates distinctio dolores quasi officia
-        eos, tempora quia amet vero dolorem fugiat quod. Rem amet dignissimos
-        mollitia iste praesentium. Optio, veniam ipsa. Quidem, tempora itaque!
-        Vero eveniet fugit tempora, culpa possimus in qui veritatis deserunt
-        eius exercitationem vel fuga magnam velit ex quae, ducimus
-        necessitatibus voluptatibus est suscipit odit error, voluptates
-        adipisci?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae sint
-        enim, voluptatem aperiam sapiente nihil assumenda? Blanditiis accusamus
-        facere vitae provident molestias illo incidunt deleniti. Eaque vel quae
-        laudantium tempora exercitationem delectus enim nostrum reprehenderit
-        numquam atque odit error, hic voluptatem recusandae nihil. Cum eius
-        perspiciatis cumque incidunt voluptates distinctio dolores quasi officia
-        eos, tempora quia amet vero dolorem fugiat quod. Rem amet dignissimos
-        mollitia iste praesentium. Optio, veniam ipsa. Quidem, tempora itaque!
-        Vero eveniet fugit tempora, culpa possimus in qui veritatis deserunt
-        eius exercitationem vel fuga magnam velit ex quae, ducimus
-        necessitatibus voluptatibus est suscipit odit error, voluptates
-        adipisci?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae sint
-        enim, voluptatem aperiam sapiente nihil assumenda? Blanditiis accusamus
-        facere vitae provident molestias illo incidunt deleniti. Eaque vel quae
-        laudantium tempora exercitationem delectus enim nostrum reprehenderit
-        numquam atque odit error, hic voluptatem recusandae nihil. Cum eius
-        perspiciatis cumque incidunt voluptates distinctio dolores quasi officia
-        eos, tempora quia amet vero dolorem fugiat quod. Rem amet dignissimos
-        mollitia iste praesentium. Optio, veniam ipsa. Quidem, tempora itaque!
-        Vero eveniet fugit tempora, culpa possimus in qui veritatis deserunt
-        eius exercitationem vel fuga magnam velit ex quae, ducimus
-        necessitatibus voluptatibus est suscipit odit error, voluptates
-        adipisci?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae sint
-        enim, voluptatem aperiam sapiente nihil assumenda? Blanditiis accusamus
-        facere vitae provident molestias illo incidunt deleniti. Eaque vel quae
-        laudantium tempora exercitationem delectus enim nostrum reprehenderit
-        numquam atque odit error, hic voluptatem recusandae nihil. Cum eius
-        perspiciatis cumque incidunt voluptates distinctio dolores quasi officia
-        eos, tempora quia amet vero dolorem fugiat quod. Rem amet dignissimos
-        mollitia iste praesentium. Optio, veniam ipsa. Quidem, tempora itaque!
-        Vero eveniet fugit tempora, culpa possimus in qui veritatis deserunt
-        eius exercitationem vel fuga magnam velit ex quae, ducimus
-        necessitatibus voluptatibus est suscipit odit error, voluptates
-        adipisci?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae sint
-        enim, voluptatem aperiam sapiente nihil assumenda? Blanditiis accusamus
-        facere vitae provident molestias illo incidunt deleniti. Eaque vel quae
-        laudantium tempora exercitationem delectus enim nostrum reprehenderit
-        numquam atque odit error, hic voluptatem recusandae nihil. Cum eius
-        perspiciatis cumque incidunt voluptates distinctio dolores quasi officia
-        eos, tempora quia amet vero dolorem fugiat quod. Rem amet dignissimos
-        mollitia iste praesentium. Optio, veniam ipsa. Quidem, tempora itaque!
-        Vero eveniet fugit tempora, culpa possimus in qui veritatis deserunt
-        eius exercitationem vel fuga magnam velit ex quae, ducimus
-        necessitatibus voluptatibus est suscipit odit error, voluptates
-        adipisci?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae sint
-        enim, voluptatem aperiam sapiente nihil assumenda? Blanditiis accusamus
-        facere vitae provident molestias illo incidunt deleniti. Eaque vel quae
-        laudantium tempora exercitationem delectus enim nostrum reprehenderit
-        numquam atque odit error, hic voluptatem recusandae nihil. Cum eius
-        perspiciatis cumque incidunt voluptates distinctio dolores quasi officia
-        eos, tempora quia amet vero dolorem fugiat quod. Rem amet dignissimos
-        mollitia iste praesentium. Optio, veniam ipsa. Quidem, tempora itaque!
-        Vero eveniet fugit tempora, culpa possimus in qui veritatis deserunt
-        eius exercitationem vel fuga magnam velit ex quae, ducimus
-        necessitatibus voluptatibus est suscipit odit error, voluptates
-        adipisci?
-      </p>
+    <div className="h-full flex flex-col gap-20 items-center py-4">
+      <div className="flex flex-col gap-10">
+        <div className="text-4xl self-center text-center">
+          {user ? (
+            <>
+              <div>ADOGA ให้มากกว่าที่พัก</div>
+              <div>
+                ทริปไหนไม่อยากพักโรงแรม จองบ้านพักส่วนตัว อพาร์ตเมนต์ คอนโด
+              </div>
+              <div>เปลี่ยนบรรยากาศได้เลย</div>
+            </>
+          ) : (
+            <div>หาห้องพักได้ง่าย</div>
+          )}
+        </div>
+        <SearchForm />
+      </div>
+      <div className="flex flex-col items-center py-20 gap-14">
+        <div className="text-4xl">ดูห้องพักในรูปแบบต่างๆ</div>
+        <div className="flex gap-10 justify-between container">
+          <TypeSearch />
+          <TypeSearch />
+          <TypeSearch />
+          <TypeSearch />
+        </div>
+      </div>
     </div>
   );
 }

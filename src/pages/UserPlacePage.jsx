@@ -37,7 +37,11 @@ function UserPlacePage() {
             {OPTION.map((text, index) => (
               <MenuItem
                 onClick={() => setSelected(index)}
-                className={selected === index && "bg-secondary text-white"}
+                className={
+                  selected === index
+                    ? "bg-secondary text-white"
+                    : "hover:bg-secondary"
+                }
                 key={index}
               >
                 {text}

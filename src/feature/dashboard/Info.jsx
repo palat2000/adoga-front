@@ -1,27 +1,12 @@
-import Joi from "joi";
 import { useState } from "react";
 import IconProfile from "../../components/IconProfile";
 import useAuth from "../../hooks/useAuth";
 import EditAction from "./EditAction";
-import Frame from "./Frame";
+import Frame from "../../components/Frame";
 import UpdatePasswordForm from "./UpdatePasswordForm";
 import axios from "../../config/axios";
 import validate from "../../utils/validate";
-
-const changePasswordSchema = Joi.object({
-  password: Joi.string()
-    .pattern(/^[a-zA-Z0-9]{6,30}$/)
-    .required()
-    .trim(),
-  newPassword: Joi.string()
-    .pattern(/^[a-zA-Z0-9]{6,30}$/)
-    .required()
-    .trim(),
-  confirmNewPassword: Joi.string()
-    .valid(Joi.ref("newPassword"))
-    .trim()
-    .required(),
-});
+import { changePasswordSchema } from "../../validation/formValidate";
 
 function Info() {
   const [isOpen, setIsOpen] = useState(false);

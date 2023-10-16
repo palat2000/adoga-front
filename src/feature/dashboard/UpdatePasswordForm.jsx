@@ -8,6 +8,7 @@ function UpdatePasswordForm({
   errorMessage,
   isLoading,
   setIsOpen,
+  who,
 }) {
   const [input, setInput] = useState({
     password: "",
@@ -34,9 +35,9 @@ function UpdatePasswordForm({
           value={input}
           id="password"
           text="รหัสผ่านปัจจุบัน"
-          err={errorMessage.password}
+          err={errorMessage?.password}
         />
-        {errorMessage.password && (
+        {errorMessage?.password && (
           <span className="text-red-500 text-xs">
             รหัสผ่านมีไม่น้อยกว่า 6 และไม่มากกว่า 30 ตัวอักษร
           </span>
@@ -47,9 +48,9 @@ function UpdatePasswordForm({
           value={input}
           id="newPassword"
           text="รหัสผ่านใหม่"
-          err={errorMessage.newPassword}
+          err={errorMessage?.newPassword}
         />
-        {errorMessage.newPassword && (
+        {errorMessage?.newPassword && (
           <span className="text-red-500 text-xs">
             รหัสผ่านมีไม่น้อยกว่า 6 และไม่มากกว่า 30 ตัวอักษร
           </span>
@@ -60,12 +61,16 @@ function UpdatePasswordForm({
           value={input}
           id="confirmNewPassword"
           text="ยืนยันรหัสใหม่"
-          err={errorMessage.confirmNewPassword}
+          err={errorMessage?.confirmNewPassword}
         />
-        {errorMessage.confirmNewPassword && (
+        {errorMessage?.confirmNewPassword && (
           <span className="text-red-500 text-xs">รหัสผ่านไม่ตรงกัน</span>
         )}
-        <ButtonForm setIsOpen={setIsOpen} />
+        <ButtonForm
+          who={who}
+          onClose={() => setIsOpen(false)}
+          setIsOpen={setIsOpen}
+        />
       </form>
     </div>
   );

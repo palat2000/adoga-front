@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Joi from "joi";
 import Button from "../../components/Button";
-import Frame from "./Frame";
+import Frame from "../../components/Frame";
 import Room from "./Room";
 import RoomForm from "./RoomForm";
 import axios from "../../config/axios";

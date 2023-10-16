@@ -4,7 +4,7 @@ function MenuItem({ children, onClick, className, onMouseOver, onMouseLeave }) {
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
-      className={`py-2 px-4 hover:text-white hover:bg-secondary transition-all cursor-pointer ${className}`}
+      className={`py-2 px-4 hover:text-white transition-all cursor-pointer ${className}`}
     >
       <div className="text-center">{children}</div>
     </div>

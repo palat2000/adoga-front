@@ -9,6 +9,7 @@ export default {
         darkBlue: "#35425B",
         bgPrimary: "#B6B5B5",
         fontGray: "#787676",
+        bgGray: "#EAE4E4",
       },
     },
   },

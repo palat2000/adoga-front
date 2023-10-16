@@ -1,5 +1,5 @@
 import EditAction from "./EditAction";
-import Frame from "./Frame";
+import Frame from "../../components/Frame";
 import Picture from "./Picture";
 import RoomForm from "./RoomForm";
 

@@ -9,6 +9,7 @@ import LocationInput from "./LocationInput";
 import useAuth from "../../hooks/useAuth";
 import validate from "../../utils/validate";
 import PictureForm from "./PictureForm";
+import createFormData from "../../utils/formData";
 
 const registerPlaceSchema = Joi.object({
   name: Joi.string().trim().required(),
@@ -73,16 +74,8 @@ function RegisterPlaceForm() {
       if (res) {
         return setValidateMessage(res);
       }
-      const formData = new FormData();
+      const formData = createFormData(data);
       formData.append("imagePlace", file);
-      formData.append("name", data.name);
-      formData.append("email", data.email);
-      formData.append("mobile", data.mobile);
-      formData.append("password", data.password);
-      formData.append("confirmPassword", data.confirmPassword);
-      formData.append("lat", data.lat);
-      formData.append("lng", data.lng);
-      formData.append("type", data.type);
       await registerPlace(formData);
       navigate("/user-place");
     } catch (err) {

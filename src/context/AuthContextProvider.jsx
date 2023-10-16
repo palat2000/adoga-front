@@ -66,6 +66,7 @@ function AuthContextProvider({ children }) {
         logout,
         initLoad,
         loginPlace,
+        setUser,
       }}
     >
       {children}

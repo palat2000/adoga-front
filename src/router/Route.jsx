@@ -8,6 +8,9 @@ import UserPlacePage from "../pages/UserPlacePage";
 import RedirectIfPlacer from "../feature/auth/RedirectIfPlacer";
 import Authen from "../feature/auth/Authen";
 import IsPlacer from "../feature/auth/IsPlacer";
+import UserPage from "../pages/UserPage";
+import RedirectIfNotAuthen from "../feature/auth/RedirectIfNotAuthen";
+import SearchPage from "../pages/SearchPage";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +45,18 @@ const router = createBrowserRouter([
             <RegisterPlacerPage />
           </Authen>
         ),
+      },
+      {
+        path: "user",
+        element: (
+          <RedirectIfNotAuthen>
+            <UserPage />
+          </RedirectIfNotAuthen>
+        ),
+      },
+      {
+        path: "search-place",
+        element: <SearchPage />,
       },
     ],
   },
