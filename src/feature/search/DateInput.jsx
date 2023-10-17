@@ -1,10 +1,7 @@
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import ErrorMessage from "../../components/ErrorMessage";
 
-function DateInput({ form, setForm }) {
-  const isStartDateValid = () => {
-    return form.start === null || form.end === null || form.start <= form.end;
-  };
+function DateInput({ form, setForm, isStartDateValid }) {
   return (
     <div className="col-span-3 bg-white px-8 py-4 rounded-xl flex flex-col items-center gap-3">
       <div className="flex gap-2">
@@ -19,6 +16,7 @@ function DateInput({ form, setForm }) {
         <DatePicker
           closeOnSelect
           disablePast
+          defaultValue={form.end}
           onChange={(end) => setForm({ ...form, end: end })}
           label="End"
         />

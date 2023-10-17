@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Joi from "joi";
+import { toast } from "react-toastify";
 import Loading from "../../components/Loading";
 import Button from "../../components/Button";
 import { OPTION } from "../../config/constants";
 import RegisterPlaceFormInput from "./RegisterPlaceFormInput";
 import LocationInput from "./LocationInput";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../hooks/use-auth";
 import validate from "../../utils/validate";
 import PictureForm from "./PictureForm";
 import createFormData from "../../utils/formData";
@@ -79,7 +80,7 @@ function RegisterPlaceForm() {
       await registerPlace(formData);
       navigate("/user-place");
     } catch (err) {
-      console.log(err);
+      toast.error(err.response?.data.message);
     } finally {
       setIsLoading(false);
     }

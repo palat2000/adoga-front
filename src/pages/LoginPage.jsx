@@ -1,9 +1,10 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import LoginForm from "../feature/auth/LoginForm";
 import Box from "../components/Box";
-import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import { useState } from "react";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../hooks/use-auth";
 
 function LoginPage() {
   const [isloginPlace, setIsLoginPlace] = useState(false);
@@ -12,7 +13,7 @@ function LoginPage() {
   const navigate = useNavigate();
   const { login, loginPlace } = useAuth();
 
-  const handlelogin = async (input) => {
+  const handleLogin = async (input) => {
     try {
       setIsfail(false);
       setIsLoading(true);
@@ -20,7 +21,7 @@ function LoginPage() {
       navigate("/");
     } catch (err) {
       setIsfail(true);
-      console.log(err);
+      toast.error(err.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -34,7 +35,7 @@ function LoginPage() {
       navigate("/user-place");
     } catch (err) {
       setIsfail(true);
-      console.log(err);
+      toast.error(err.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -53,7 +54,7 @@ function LoginPage() {
           <LoginForm
             isFail={isFail}
             isLoading={isLoading}
-            handleSubmit={handlelogin}
+            handleSubmit={handleLogin}
             classButton="bg-primary"
           />
         ) : (

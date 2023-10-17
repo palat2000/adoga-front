@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import IconProfile from "../../components/IconProfile";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../hooks/use-auth";
 import EditAction from "./EditAction";
 import Frame from "../../components/Frame";
 import UpdatePasswordForm from "./UpdatePasswordForm";
@@ -25,7 +26,7 @@ function Info() {
       await axios.patch("/manage/change-password/place", input);
       setIsOpen(false);
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.message);
     } finally {
       setIsLoading(false);
     }

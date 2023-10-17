@@ -11,6 +11,8 @@ import IsPlacer from "../feature/auth/IsPlacer";
 import UserPage from "../pages/UserPage";
 import RedirectIfNotAuthen from "../feature/auth/RedirectIfNotAuthen";
 import SearchPage from "../pages/SearchPage";
+import CannotSearchIfNoInfo from "../feature/search/CannotSearchIfNoInfo";
+import PlacePage from "../pages/PlacePage";
 
 const router = createBrowserRouter([
   {
@@ -56,7 +58,15 @@ const router = createBrowserRouter([
       },
       {
         path: "search-place",
-        element: <SearchPage />,
+        element: (
+          <CannotSearchIfNoInfo>
+            <SearchPage />,
+          </CannotSearchIfNoInfo>
+        ),
+      },
+      {
+        path: ":placeId",
+        element: <PlacePage />,
       },
     ],
   },

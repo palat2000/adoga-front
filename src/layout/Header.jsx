@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../hooks/use-auth";
 import Dropdown from "./Dropdown";
 
 function Header() {

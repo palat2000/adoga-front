@@ -5,13 +5,16 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import App from "./App.jsx";
 import "./index.css";
 import AuthContextProvider from "./context/AuthContextProvider.jsx";
+import SearchContextProvider from "./context/SearchContextProvider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <AuthContextProvider>
-      <App />
-    </AuthContextProvider>
+    <SearchContextProvider>
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
+    </SearchContextProvider>
   </LocalizationProvider>
   // </React.StrictMode>,
 );

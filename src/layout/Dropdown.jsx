@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import IconProfile from "../components/IconProfile";
 import useDropdown from "../hooks/use-dropdown";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../hooks/use-auth";
 
 function Dropdown({ name }) {
   const { dropdownRef, isOpen, setIsOpen } = useDropdown();

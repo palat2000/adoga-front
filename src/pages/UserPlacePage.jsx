@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Info from "../feature/dashboard/Info";
 import ManageRoom from "../feature/dashboard/ManageRoom";
 import MenuItem from "../feature/dashboard/MenuItem";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../hooks/use-auth";
 import axios from "../config/axios";
 
 const OPTION = ["ข้อมูลที่พัก", "จัดการห้องพัก", "ข้อมูลการจอง"];
@@ -23,7 +24,7 @@ function UserPlacePage() {
         } = await axios.get("/manage/my-rooms");
         setMyRooms([...rooms]);
       } catch (err) {
-        console.log(err);
+        toast.error(err.response.data.message);
       }
     };
     fetch();

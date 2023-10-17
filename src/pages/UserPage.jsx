@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import IconProfile from "../components/IconProfile";
 import EditAction from "../feature/dashboard/EditAction";
 import Frame from "../components/Frame";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../hooks/use-auth";
 import UpdatePasswordForm from "../feature/dashboard/UpdatePasswordForm";
 import {
   changePasswordSchema,
@@ -34,7 +35,7 @@ function UserPage() {
       setUser({ ...user, mobile: input });
       setIsOpen(false);
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -53,7 +54,7 @@ function UserPage() {
       await axios.patch("/manage/add-mobile", { mobile: input });
       setIsAdd(false);
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -75,7 +76,7 @@ function UserPage() {
       });
       setIsEdit(false);
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.message);
     } finally {
       setIsLoading(false);
     }

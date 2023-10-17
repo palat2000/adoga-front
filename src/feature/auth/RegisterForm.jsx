@@ -1,9 +1,10 @@
 import { useState } from "react";
-import Joi from "joi";
 import { useNavigate } from "react-router-dom";
+import Joi from "joi";
+import { toast } from "react-toastify";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../hooks/use-auth";
 import Loading from "../../components/Loading";
 import validate from "../../utils/validate";
 
@@ -47,7 +48,7 @@ function RegisterForm() {
       await register(input);
       navigate("/");
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.message);
     } finally {
       setIsLoading(false);
     }

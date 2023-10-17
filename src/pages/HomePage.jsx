@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import SearchForm from "../feature/search/SearchForm";
 import TypeSearch from "../feature/search/TypeSearch";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../hooks/use-auth";
+import useSearch from "../hooks/use-search";
 
 function HomePage() {
   const { user } = useAuth();
+  const { setForm, form } = useSearch();
   return (
     <div className="h-full flex flex-col gap-20 items-center py-4">
       <div className="flex flex-col gap-10">
@@ -26,16 +28,28 @@ function HomePage() {
       <div className="flex flex-col items-center py-20 gap-14">
         <div className="text-4xl">ดูห้องพักในรูปแบบต่างๆ</div>
         <div className="flex gap-10 justify-between container">
-          <Link to="search-place?type=hotel">
+          <Link
+            onClick={() => setForm({ ...form, type: "HOTEL" })}
+            to="search-place"
+          >
             <TypeSearch />
           </Link>
-          <Link to="search-place?type=VILLA">
+          <Link
+            onClick={() => setForm({ ...form, type: "VILLA" })}
+            to="search-place"
+          >
             <TypeSearch />
           </Link>
-          <Link to="search-place?type=vacation_home">
+          <Link
+            onClick={() => setForm({ ...form, type: "VACATION_HOME" })}
+            to="search-place"
+          >
             <TypeSearch />
           </Link>
-          <Link to="search-place?type=conDo_ApartMent">
+          <Link
+            onClick={() => setForm({ ...form, type: "CONDO_APARTMENT" })}
+            to="search-place"
+          >
             <TypeSearch />
           </Link>
         </div>
