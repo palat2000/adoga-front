@@ -13,6 +13,7 @@ function SearchForm() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
+        setForm({ ...form, type: null });
         navigate("/search-place");
       }}
       className="bg-bgGray relative grid grid-cols-6 gap-3 pt-6 pb-12 px-8 rounded-xl"

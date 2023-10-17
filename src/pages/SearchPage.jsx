@@ -49,14 +49,16 @@ function SearchPage() {
   };
 
   useEffect(() => {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
+    if (minMax[0] !== 0 && !minMax[1] !== 30000) {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      const id = setTimeout(
+        () => setForm({ ...form, minPrice: minMax[0], maxPrice: minMax[1] }),
+        2000
+      );
+      setTimeoutId(id);
     }
-    const id = setTimeout(
-      () => setForm({ ...form, minPrice: minMax[0], maxPrice: minMax[1] }),
-      2000
-    );
-    setTimeoutId(id);
   }, [minMax]);
 
   useEffect(() => {
@@ -66,7 +68,7 @@ function SearchPage() {
         const {
           data: { places },
         } = await axios.post("/search/", form);
-        // console.log("here");
+        places.sort(() => Math.random() * 10 - 5);
         setPlaces(places);
       } catch (err) {
         toast.error(err.response.data.message);

@@ -1,12 +1,24 @@
+let minPrice;
+
 function PlaceItem({ place, onClick }) {
+  if (!minPrice) {
+    for (let room of place.rooms) {
+      if (minPrice === undefined) {
+        minPrice = room.price;
+        continue;
+      }
+      minPrice = Math.min(minPrice, room.price);
+    }
+  }
+
   return (
     <div
       onClick={onClick}
       className="border cursor-pointer border-black flex gap-4"
     >
-      <div>
+      <div className="w-[200px] bg-bgGray">
         <img
-          className="h-[200px]"
+          className="w-[200px] h-[200px]"
           src={place?.imagePlaces[0]?.image}
           alt="place"
         />
@@ -14,7 +26,7 @@ function PlaceItem({ place, onClick }) {
       <div className="flex-1 pt-5">{place.name}</div>
       <div className="self-end pb-5 pr-5">
         <div className="text-fontGray">ราคาเริ่มต้น(ต่อคืน)</div>
-        {/* <div>฿{place.price.toLocaleString("en-Us")}</div> */}
+        <div>฿{minPrice.toLocaleString("en-Us")}</div>
       </div>
     </div>
   );
