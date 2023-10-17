@@ -3,6 +3,12 @@ import SearchForm from "../feature/search/SearchForm";
 import TypeSearch from "../feature/search/TypeSearch";
 import useAuth from "../hooks/use-auth";
 import useSearch from "../hooks/use-search";
+import {
+  HOTEL,
+  VILLA,
+  CONDO_APARTMENT,
+  VACATION_HOME,
+} from "../config/constants";
 
 function HomePage() {
   const { user } = useAuth();
@@ -29,25 +35,25 @@ function HomePage() {
         <div className="text-4xl">ดูห้องพักในรูปแบบต่างๆ</div>
         <div className="flex gap-10 justify-between container">
           <Link
-            onClick={() => setForm({ ...form, type: "HOTEL" })}
+            onClick={() => setForm({ ...form, type: HOTEL })}
             to="search-place"
           >
             <TypeSearch />
           </Link>
           <Link
-            onClick={() => setForm({ ...form, type: "VILLA" })}
+            onClick={() => setForm({ ...form, type: VILLA })}
             to="search-place"
           >
             <TypeSearch />
           </Link>
           <Link
-            onClick={() => setForm({ ...form, type: "VACATION_HOME" })}
+            onClick={() => setForm({ ...form, type: VACATION_HOME })}
             to="search-place"
           >
             <TypeSearch />
           </Link>
           <Link
-            onClick={() => setForm({ ...form, type: "CONDO_APARTMENT" })}
+            onClick={() => setForm({ ...form, type: CONDO_APARTMENT })}
             to="search-place"
           >
             <TypeSearch />
