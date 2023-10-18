@@ -37,7 +37,7 @@ function SearchBar({
             disablePast
             label="End"
             defaultValue={input.end}
-            onChange={(end) => setInput({ ...input, End: end })}
+            onChange={(end) => setInput({ ...input, end: end })}
           />
         </div>
         <SmallTotalPeopleInput

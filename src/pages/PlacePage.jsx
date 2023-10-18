@@ -1,67 +1,69 @@
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "../config/axios";
 import LoadingPage from "../components/LoadingPage";
 import SearchBar from "../feature/search/SearchBar";
 import useSearch from "../hooks/use-search";
-import { GOOGLE_API_KEY } from "../config/env";
 import Room from "../feature/search/Room";
+import useGoogle from "../hooks/use-google";
+import Background from "../components/Background";
 
 function PlacePage() {
   const [place, setPlace] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const { form, setForm } = useSearch();
+  const isMountingRef = useRef(false);
   const navigate = useNavigate();
-  const [input, setInput] = useState(form);
   const { placeId } = useParams();
-  //   const [libraries, setLibraries] = useState(["places"]);
+  const { form, setForm } = useSearch();
+  const { GoogleMap, isLoaded, Marker } = useGoogle();
 
-  const center = { lat: +place.lat, lng: +place.lng };
-
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: GOOGLE_API_KEY,
-  });
+  const center = { lat: +place.lat || 10, lng: +place.lng || 10 };
 
   const isStartDateValid = () => {
-    return (
-      input.start === null || input.end === null || input.start <= input.end
-    );
+    return form.start === null || form.end === null || form.start <= form.end;
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (isStartDateValid()) {
-      return;
-    }
     navigate("/search-place");
-    setForm(input);
   };
 
   const increase = (where) => {
-    setInput({ ...input, [where]: input[where] + 1 });
+    setForm({ ...form, [where]: form[where] + 1 });
   };
 
   const decrease = (where) => {
-    setInput({ ...input, [where]: input[where] - 1 });
+    setForm({ ...form, [where]: form[where] - 1 });
+  };
+
+  const getPlaceById = async () => {
+    try {
+      setIsLoading(true);
+      const {
+        data: { place },
+      } = await axios.post(`/search/place/${placeId}`, form);
+      setPlace(place);
+    } catch (err) {
+      toast.error(err.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    const getPlaceById = async () => {
-      try {
-        setIsLoading(true);
-        const {
-          data: { place },
-        } = await axios.get(`/search/place/${placeId}`);
-        setPlace(place);
-      } catch (err) {
-        toast.error(err.response.data.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    if (isMountingRef.current) {
+      const id = setTimeout(() => getPlaceById(), 3000);
+      return () => clearTimeout(id);
+    }
+  }, [form]);
+
+  useEffect(() => {
     getPlaceById();
+  }, []);
+
+  useEffect(() => {
+    isMountingRef.current = true;
   }, []);
 
   return (
@@ -70,8 +72,8 @@ function PlacePage() {
       <SearchBar
         isStartDateValid={isStartDateValid}
         handleSearch={handleSearch}
-        input={input}
-        setInput={setInput}
+        input={form}
+        setInput={setForm}
         increase={increase}
         decrease={decrease}
       />
@@ -85,7 +87,7 @@ function PlacePage() {
             />
           )}
         </div>
-        {isLoaded && (
+        {isLoaded ? (
           <GoogleMap
             center={center}
             mapContainerStyle={{ width: "100%", height: "300px" }}
@@ -99,6 +101,8 @@ function PlacePage() {
           >
             <Marker position={center} />
           </GoogleMap>
+        ) : (
+          <Background height="300px" />
         )}
         <div className="flex flex-col items-center gap-4">
           {place.rooms &&

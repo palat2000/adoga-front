@@ -12,6 +12,7 @@ function SearchContextProvider({ children }) {
     type: null,
     minPrice: 0,
     maxPrice: 30000,
+    search: null,
   });
 
   const increase = (where) => {

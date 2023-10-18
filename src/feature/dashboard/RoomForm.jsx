@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Input from "../../components/Input";
 import ButtonForm from "./ButtonForm";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
+import Button from "../../components/Button";
 
 function RoomForm({
   errorMessage,
@@ -11,6 +12,8 @@ function RoomForm({
   isLoading,
   info,
   isEdit,
+  file,
+  setFile,
 }) {
   const [input, setInput] = useState(
     info || {
@@ -21,12 +24,13 @@ function RoomForm({
       totalRoomCount: "",
     }
   );
+  const inputRef = useRef();
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.id]: e.target.value });
   };
   return (
-    <div className="realtive">
+    <div className="relative">
       {isLoading && <Loading />}
       <form
         onSubmit={(e) => {
@@ -94,6 +98,41 @@ function RoomForm({
         />
         {errorMessage?.desc && (
           <ErrorMessage text="กรุณาใส่รายละเอียดห้องพัก" />
+        )}
+        <div className="pt-2 flex flex-col gap-2">
+          <input
+            onChange={(e) => {
+              if (e.target.files[0]) {
+                setFile(e.target.files[0]);
+              }
+            }}
+            ref={inputRef}
+            className="hidden"
+            type="file"
+          />
+          <Button
+            onClick={() => inputRef.current.click()}
+            className="self-start bg-secondary text-white"
+            type="button"
+          >
+            เลือกรูป
+          </Button>
+          {errorMessage?.file && <ErrorMessage text={errorMessage.file} />}
+        </div>
+        {file && (
+          <div className="relative self-start">
+            <span
+              onClick={() => setFile(null)}
+              className="absolute right-2 text-lg font-bold cursor-pointer"
+            >
+              x
+            </span>
+            <img
+              className="h-[200px] aspect-auto"
+              src={URL.createObjectURL(file)}
+              alt="place"
+            />
+          </div>
         )}
         <ButtonForm onClose={onClose} />
       </form>

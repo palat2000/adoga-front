@@ -7,6 +7,7 @@ import Room from "./Room";
 import RoomForm from "./RoomForm";
 import axios from "../../config/axios";
 import validate from "../../utils/validate";
+import createFormData from "../../utils/formData";
 
 const roomSchema = Joi.object({
   maximumNumberPeople: Joi.number().required(),
@@ -21,6 +22,7 @@ function ManageRoom({ myRooms, setMyRooms }) {
   const [errorMessage, setErrorMessage] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [editId, setEditId] = useState(null);
+  const [file, setFile] = useState(null);
 
   const handleSubmit = async (input) => {
     try {
@@ -30,10 +32,16 @@ function ManageRoom({ myRooms, setMyRooms }) {
       if (res) {
         return setErrorMessage(res);
       }
+      if (!file) {
+        return setErrorMessage({ file: "โปรดเลือกรูปภาพ" });
+      }
+      const formData = createFormData(input);
+      formData.append("imageRoom", file);
       const {
         data: { room },
-      } = await axios.post("/manage/create-room", input);
+      } = await axios.post("/manage/create-room", formData);
       setMyRooms([room, ...myRooms]);
+      setFile(null);
       setIsOpen(false);
     } catch (err) {
       toast.error(err.response.data.message);
@@ -74,6 +82,8 @@ function ManageRoom({ myRooms, setMyRooms }) {
       {isOpen ? (
         <Frame>
           <RoomForm
+            setFile={setFile}
+            file={file}
             isLoading={isLoading}
             onClose={() => {
               setIsOpen(false);

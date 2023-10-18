@@ -1,4 +1,4 @@
-function TypeSearch({ type }) {
+function TypeSearch({ type, src }) {
   return (
     <div className="border border-bgGray hover:shadow-xl hover:border-fontGray flex flex-col items-center cursor-pointer">
       <div>
@@ -7,7 +7,7 @@ function TypeSearch({ type }) {
           alt=""
         />
       </div>
-      <div className="py-5">โรงแรม</div>
+      <div className="py-5">{type}</div>
     </div>
   );
 }

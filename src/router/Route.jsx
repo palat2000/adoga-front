@@ -11,8 +11,9 @@ import IsPlacer from "../feature/auth/IsPlacer";
 import UserPage from "../pages/UserPage";
 import RedirectIfNotAuthen from "../feature/auth/RedirectIfNotAuthen";
 import SearchPage from "../pages/SearchPage";
-import CannotSearchIfNoInfo from "../feature/search/CannotSearchIfNoInfo";
 import PlacePage from "../pages/PlacePage";
+import SuccessPage from "../pages/SuccessPage";
+import InFormBookingPage from "../pages/InFormBookingPage";
 
 const router = createBrowserRouter([
   {
@@ -58,16 +59,17 @@ const router = createBrowserRouter([
       },
       {
         path: "search-place",
-        element: (
-          <CannotSearchIfNoInfo>
-            <SearchPage />,
-          </CannotSearchIfNoInfo>
-        ),
+        element: <SearchPage />,
       },
       {
         path: ":placeId",
         element: <PlacePage />,
       },
+      {
+        path: "success",
+        element: <SuccessPage />,
+      },
+      { path: "inform-booking/:roomId", element: <InFormBookingPage /> },
     ],
   },
   {

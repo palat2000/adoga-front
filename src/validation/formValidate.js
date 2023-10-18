@@ -23,3 +23,12 @@ export const profileSchema = Joi.object({
   firstName: Joi.string().required().trim(),
   lastName: Joi.string().required().trim(),
 });
+
+export const customerSchema = Joi.object({
+  firstName: Joi.string().required().trim(),
+  lastName: Joi.string().required().trim(),
+  mobile: Joi.string()
+    .pattern(/^[0-9]{10}$/)
+    .required(),
+  email: Joi.string().email({ tlds: false }).required(),
+});

@@ -7,6 +7,8 @@ import LoadingPage from "../components/LoadingPage";
 import SearchBar from "../feature/search/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { Slider } from "@mui/material";
+import { useRef } from "react";
+import { useLocation } from "react-router-dom";
 
 function SearchPage() {
   const [places, setPlaces] = useState([]);
@@ -14,8 +16,12 @@ function SearchPage() {
   const { form, setForm } = useSearch();
   const [input, setInput] = useState(form);
   const [minMax, setMinMax] = useState([input.minPrice, input.maxPrice]);
-  const [timeoutId, setTimeoutId] = useState(null);
+  const [search, setSearch] = useState("");
+  const isMountingRef = useRef(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const type = queryParams.get("type");
 
   const isStartDateValid = () => {
     return (
@@ -49,17 +55,20 @@ function SearchPage() {
   };
 
   useEffect(() => {
-    if (minMax[0] !== 0 && !minMax[1] !== 30000) {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
+    if (isMountingRef.current) {
       const id = setTimeout(
-        () => setForm({ ...form, minPrice: minMax[0], maxPrice: minMax[1] }),
-        2000
+        () =>
+          setForm({
+            ...form,
+            minPrice: minMax[0],
+            maxPrice: minMax[1],
+            search,
+          }),
+        1500
       );
-      setTimeoutId(id);
+      return () => clearTimeout(id);
     }
-  }, [minMax]);
+  }, [minMax, search]);
 
   useEffect(() => {
     const getPlace = async () => {
@@ -79,6 +88,13 @@ function SearchPage() {
     getPlace();
   }, [form]);
 
+  useEffect(() => {
+    isMountingRef.current = true;
+    if (type) {
+      setForm({ ...form, type: type });
+    }
+  }, []);
+
   return (
     <div className="flex justify-center py-10 relative">
       {isLoading && <LoadingPage />}
@@ -93,6 +109,8 @@ function SearchPage() {
       <div className="container grid grid-cols-4 px-20 pt-14">
         <div className="col-span-1 pt-10 flex flex-col gap-10 max-w-[230px] items-center">
           <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             className="px-4 py-2 border border-fontGray rounded-md outline-none"
             type="text"
             placeholder="ใส่คำค้นหา"

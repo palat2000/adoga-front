@@ -1,10 +1,9 @@
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import { useState } from "react";
-import { GOOGLE_API_KEY } from "../../config/env";
+import Background from "../../components/Background";
+import useGoogle from "../../hooks/use-google";
 
 const containerStyle = { width: "100%", height: "400px" };
 let center = { lat: 13.758181219991302, lng: 100.53499851133232 };
@@ -17,16 +16,11 @@ function LocationInput({
   setClicked,
   validateMessage,
 }) {
-  const [libraries, setLibraries] = useState(["places"]);
-
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: GOOGLE_API_KEY,
-    libraries,
-  });
+  const { GoogleMap, isLoaded, Marker } = useGoogle();
 
   if (selected) center = selected;
 
-  if (!isLoaded) return <Background />;
+  if (!isLoaded) return <Background height="400px" />;
 
   return (
     <div className="flex flex-col gap-2 -mt-2">
@@ -113,10 +107,6 @@ function PlacesAutoComplete({ setSelected, setClicked, validateMessage }) {
       )}
     </>
   );
-}
-
-function Background() {
-  return <div className="bg-gray-200 h-[400px] rounded-md"></div>;
 }
 
 export default LocationInput;
