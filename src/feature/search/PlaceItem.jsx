@@ -1,15 +1,8 @@
-let minPrice;
-
 function PlaceItem({ place, onClick }) {
-  if (!minPrice) {
-    for (let room of place.rooms) {
-      if (minPrice === undefined) {
-        minPrice = room.price;
-        continue;
-      }
-      minPrice = Math.min(minPrice, room.price);
-    }
-  }
+  let minPrice = place.rooms.reduce((acc, room) => {
+    acc = Math.min(acc, room.price);
+    return acc;
+  }, place.rooms[0].price);
 
   return (
     <div

@@ -36,8 +36,13 @@ function Room({ room }) {
       <div className="px-5 py-3 text-2xl">{room.name}</div>
       <div className="flex gap-4">
         <div>
-          <div className="bg-bgGray w-[200px] h-[200px]"></div>
-          {/* <img src="" alt="" /> */}
+          <div className="bg-bgGray w-[200px] h-[200px]">
+            <img
+              className="w-full h-full"
+              src={room.images[0]?.image}
+              alt="room"
+            />
+          </div>
         </div>
         <div className="flex flex-col justify-around flex-1">
           <div>

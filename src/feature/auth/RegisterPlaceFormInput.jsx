@@ -42,7 +42,7 @@ function RegisterPlaceFormInput({
         onChange={handleChange}
       />
       {validateMessage.mobile && (
-        <span className="text-xs text-red-500">อีเมลไม่ถูกต้อง</span>
+        <span className="text-xs text-red-500">เบอร์โทรศัพท์ไม่ถูกต้อง</span>
       )}
       <TypeInput
         title="ประเภทที่พัก"

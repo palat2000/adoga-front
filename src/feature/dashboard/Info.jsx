@@ -35,7 +35,7 @@ function Info() {
   return (
     <>
       <Frame className="flex gap-5 items-center">
-        <IconProfile className="h-16 text-3xl" />
+        <IconProfile name={user.name} className="h-16 text-3xl" />
         <div className="flex flex-col gap-2 flex-1">
           <div>ชื่อที่พัก</div>
           <div>{user.name}</div>

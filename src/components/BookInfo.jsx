@@ -4,7 +4,7 @@ function BookInfo({ room, numberRoom, startDate, endDate, place }) {
   return (
     <div className="border bg-white w-[] rounded-sm shadow flex gap-6 text-xl">
       <div className="w-[200px] h-[200px] bg-bgGray">
-        <img src={room.images[0]?.image} alt="room" />
+        <img className="w-full h-full" src={room.images[0]?.image} alt="room" />
       </div>
       <div className="flex-1 flex flex-col justify-around">
         <div>
