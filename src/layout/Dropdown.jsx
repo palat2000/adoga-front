@@ -16,9 +16,11 @@ function Dropdown({ name }) {
       />
       {isOpen && (
         <div className="absolute bg-white shadow-lg w-56 top-[100%] right-0 rounded-sm p-4">
-          <div className="px-4 py-2 hover:bg-gray-200 rounded-sm cursor-pointer">
-            การจองของฉัน
-          </div>
+          <Link onClick={() => setIsOpen(false)} to="/my-booking">
+            <div className="px-4 py-2 hover:bg-gray-200 rounded-sm cursor-pointer">
+              การจองของฉัน
+            </div>
+          </Link>
           <Link onClick={() => setIsOpen(false)} to="/user">
             <div className="px-4 py-2 hover:bg-gray-200 rounded-sm cursor-pointer">
               ข้อมูลส่วนตัวของฉัน

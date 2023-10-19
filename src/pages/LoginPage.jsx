@@ -69,7 +69,9 @@ function LoginPage() {
           onClick={() =>
             navigate(isloginPlace ? "/register-place" : "/register")
           }
-          className="text-primary cursor-pointer self-start"
+          className={`${
+            isloginPlace ? "text-secondary" : "text-primary"
+          } cursor-pointer self-start`}
         >
           สร้างบัญชีผู้ใช้
         </span>

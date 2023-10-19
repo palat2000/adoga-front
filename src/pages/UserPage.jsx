@@ -32,7 +32,6 @@ function UserPage() {
         return setErrorMessage(res);
       }
       await axios.patch("/manage/change-password/user", input);
-      setUser({ ...user, mobile: input });
       setIsOpen(false);
     } catch (err) {
       toast.error(err.response.data.message);
@@ -52,6 +51,7 @@ function UserPage() {
         });
       }
       await axios.patch("/manage/add-mobile", { mobile: input });
+      setUser({ ...user, mobile: input });
       setIsAdd(false);
     } catch (err) {
       toast.error(err.response.data.message);

@@ -14,6 +14,7 @@ import SearchPage from "../pages/SearchPage";
 import PlacePage from "../pages/PlacePage";
 import SuccessPage from "../pages/SuccessPage";
 import InFormBookingPage from "../pages/InFormBookingPage";
+import MyBooking from "../pages/MyBooking";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,14 @@ const router = createBrowserRouter([
         element: <SuccessPage />,
       },
       { path: "inform-booking/:roomId", element: <InFormBookingPage /> },
+      {
+        path: "my-booking",
+        element: (
+          <RedirectIfNotAuthen>
+            <MyBooking />
+          </RedirectIfNotAuthen>
+        ),
+      },
     ],
   },
   {

@@ -6,6 +6,7 @@ import ManageRoom from "../feature/dashboard/ManageRoom";
 import MenuItem from "../feature/dashboard/MenuItem";
 import useAuth from "../hooks/use-auth";
 import axios from "../config/axios";
+import BookInfo from "../feature/dashboard/BookInfo";
 
 const OPTION = ["ข้อมูลที่พัก", "จัดการห้องพัก", "ข้อมูลการจอง"];
 
@@ -95,6 +96,7 @@ function UserPlacePage() {
             {selected === 1 && (
               <ManageRoom myRooms={myRooms} setMyRooms={setMyRooms} />
             )}
+            {selected === 2 && <BookInfo />}
           </div>
         </div>
       </div>

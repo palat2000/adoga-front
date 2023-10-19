@@ -3,7 +3,7 @@ import Joi from "joi";
 import { toast } from "react-toastify";
 import Button from "../../components/Button";
 import Frame from "../../components/Frame";
-import Room from "./Room";
+import Room from "./RoomDashboard";
 import RoomForm from "./RoomForm";
 import axios from "../../config/axios";
 import validate from "../../utils/validate";
@@ -66,8 +66,9 @@ function ManageRoom({ myRooms, setMyRooms }) {
       }
       const newMyRooms = [...myRooms];
       const index = newMyRooms.findIndex((room) => room.id === input.id);
-      newMyRooms.splice(index, 1, input);
+      newMyRooms.splice(index, 1, { ...input });
       setMyRooms(newMyRooms);
+      delete input.images;
       await axios.patch(`/manage/update-room/${input.id}`, input);
       setEditId(null);
     } catch (err) {

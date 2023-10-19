@@ -11,7 +11,6 @@ function RoomForm({
   handleSubmit,
   isLoading,
   info,
-  isEdit,
   file,
   setFile,
 }) {
@@ -56,20 +55,6 @@ function RoomForm({
         />
         {errorMessage?.totalRoomCount && (
           <ErrorMessage text="กรุณาใส่จำนวนห้อง" />
-        )}
-        {isEdit && (
-          <>
-            <Input
-              err={errorMessage.remaining}
-              onChange={handleChange}
-              text="จำนวนห้องคงเหลือ"
-              id="remaining"
-              value={input}
-            />
-            {errorMessage?.remaining && (
-              <ErrorMessage text={errorMessage.remaining} />
-            )}
-          </>
         )}
         <Input
           err={errorMessage?.maximumNumberPeople}
