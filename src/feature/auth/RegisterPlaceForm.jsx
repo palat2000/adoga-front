@@ -6,7 +6,7 @@ import Loading from "../../components/Loading";
 import Button from "../../components/Button";
 import { OPTION } from "../../config/constants";
 import RegisterPlaceFormInput from "./RegisterPlaceFormInput";
-import LocationInput from "./LocationInput";
+import LocationInput from "../map/LocationInput";
 import useAuth from "../../hooks/use-auth";
 import validate from "../../utils/validate";
 import PictureForm from "./PictureForm";

@@ -1,24 +1,42 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useSearch from "../../hooks/use-search";
 import TotalPeopleInput from "./TotalPeopleInput";
 import DateInput from "./DateInput";
+import useGoogle from "../../hooks/use-google";
+import LoadingPage from "../../components/LoadingPage";
+import SearchMap from "../map/SearchMap";
 
 function SearchForm() {
+  const [selected, setSelected] = useState(null);
   const navigate = useNavigate();
   const { form, setForm, increase, decrease } = useSearch();
+  const { isLoaded } = useGoogle();
+
   const isStartDateValid = () => {
     return form.start === null || form.end === null || form.start <= form.end;
   };
+
+  if (!isLoaded) {
+    return <LoadingPage />;
+  }
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        setForm({ ...form, type: null, minPrice: 0, maxPrice: 30000 });
+        setForm({
+          ...form,
+          type: null,
+          minPrice: 0,
+          maxPrice: 30000,
+          where: selected,
+        });
         navigate("/search-place");
       }}
       className="bg-bgGray relative grid grid-cols-6 gap-3 pt-6 pb-12 px-8 rounded-xl"
     >
-      <input className="bg-white col-span-6 rounded-xl px-8 py-4 outline-none text-2xl" />
+      <SearchMap setSelected={setSelected} />
       <DateInput
         isStartDateValid={isStartDateValid}
         form={form}
