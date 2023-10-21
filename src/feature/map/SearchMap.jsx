@@ -1,6 +1,8 @@
 import useGoogle from "../../hooks/use-google";
+import useSearch from "../../hooks/use-search";
 
-function SearchMap({ setSelected }) {
+function SearchMap({ setSelected, classNameDiv, classNameInput }) {
+  const { address, setAddress } = useSearch();
   const { usePlacesAutocomplete, getGeocode, getLatLng } = useGoogle();
   const {
     ready,
@@ -18,9 +20,16 @@ function SearchMap({ setSelected }) {
     const location = res[0].address_components.filter(
       (el) => el.types[0] === "administrative_area_level_1"
     );
+    const province =
+      location[0].long_name === "Krung Thep Maha Nakhon" ||
+      location[0].long_name === "กรุงเทพมหานคร"
+        ? "Bangkok"
+        : location[0].long_name;
+    setAddress(address);
     setSelected({
-      province: location[0].long_name,
-      location: { lat: lat, lng: lng },
+      province,
+      lat: lat,
+      lng: lng,
     });
   };
 
@@ -42,10 +51,10 @@ function SearchMap({ setSelected }) {
 
   if (!ready) return null;
   return (
-    <div className="z-30 relative flex flex-col col-span-6">
+    <div className={`z-30 relative flex flex-col ${classNameDiv}`}>
       <input
-        className="border border-gray-300 rounded-xl px-8 py-4 outline-none text-2xl"
-        placeholder="เลือกสถานที่"
+        className={`border border-gray-300 rounded-xl outline-none ${classNameInput}`}
+        placeholder={address || "เลือกสถานที่"}
         type="text"
         value={value}
         onChange={handleInput}

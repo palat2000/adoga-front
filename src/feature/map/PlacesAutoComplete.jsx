@@ -18,9 +18,16 @@ function PlacesAutoComplete({ setSelected, setClicked, validateMessage }) {
     setValue(address, false);
     clearSuggestions();
     const res = await getGeocode({ address });
-    console.log(res);
+    const location = res[0].address_components.filter(
+      (el) => el.types[0] === "administrative_area_level_1"
+    );
+    const province =
+      location[0].long_name === "Krung Thep Maha Nakhon" ||
+      location[0].long_name === "กรุงเทพมหานคร"
+        ? "Bangkok"
+        : location[0].long_name;
     const { lat, lng } = getLatLng(res[0]);
-    setSelected({ lat, lng });
+    setSelected({ province, lat, lng });
     setClicked(null);
   };
 
@@ -43,7 +50,7 @@ function PlacesAutoComplete({ setSelected, setClicked, validateMessage }) {
       <div className="z-30 relative flex flex-col">
         <input
           className={`outline-none px-4 py-1 border border-gray-300 rounded-xs ${
-            validateMessage?.lat && "border-red-300"
+            validateMessage?.where?.location?.lat && "border-red-300"
           }`}
           placeholder="เลือกสถานที่"
           type="text"
@@ -56,7 +63,7 @@ function PlacesAutoComplete({ setSelected, setClicked, validateMessage }) {
           </ul>
         )}
       </div>
-      {validateMessage?.lat && (
+      {validateMessage?.where?.location?.lat && (
         <span className="text-red-500 text-xs">กรุณาเลือกที่อยู่ที่พัก</span>
       )}
     </>

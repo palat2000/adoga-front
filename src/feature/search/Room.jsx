@@ -4,7 +4,7 @@ import axios from "../../config/axios";
 import useAuth from "../../hooks/use-auth";
 import useSearch from "../../hooks/use-search";
 
-function Room({ room }) {
+function Room({ room, isStartDateValid }) {
   const { form } = useSearch();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -55,9 +55,9 @@ function Room({ room }) {
           <div>฿ {room.price.toLocaleString("en-Us")}</div>
           <div>ราคาเริ่มต้น(ต่อคืน)</div>
           <button
-            disabled={!room.remaining}
+            disabled={!room.remaining || !isStartDateValid()}
             onClick={() => handleBook(room.id)}
-            className="w-full bg-primary text-white rounded-md py-2"
+            className="w-full bg-primary text-white rounded-md py-2 disabled:bg-bgPrimary"
           >
             จอง
           </button>

@@ -15,7 +15,7 @@ function LocationInput({
 }) {
   const { GoogleMap, isLoaded, Marker } = useGoogle();
 
-  if (selected) center = selected;
+  if (selected) center = { lat: selected.lat, lng: selected.lng };
 
   if (!isLoaded) return <Background height="400px" />;
 
@@ -29,7 +29,7 @@ function LocationInput({
       />
       <GoogleMap
         onClick={handleClick}
-        center={selected || center}
+        center={center}
         mapContainerStyle={containerStyle}
         zoom={14}
         options={{
@@ -39,7 +39,14 @@ function LocationInput({
           zoomControl: false,
         }}
       >
-        {(clicked || selected) && <Marker position={selected || clicked} />}
+        {(clicked || selected) && (
+          <Marker
+            position={{
+              lat: selected?.lat || clicked?.lat,
+              lng: selected?.lng || clicked?.lng,
+            }}
+          />
+        )}
       </GoogleMap>
     </div>
   );

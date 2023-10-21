@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Slider } from "@mui/material";
 import { useRef } from "react";
 import { useLocation } from "react-router-dom";
+import calculateDistance from "../utils/calculate-distance";
 
 function SearchPage() {
   const [places, setPlaces] = useState([]);
@@ -49,25 +50,6 @@ function SearchPage() {
     }
   };
 
-  function calculateDistance(lat1, lng1, lat2, lng2) {
-    const R = 6371;
-
-    const lat1Rad = (Math.PI * lat1) / 180;
-    const lng1Rad = (Math.PI * lng1) / 180;
-    const lat2Rad = (Math.PI * lat2) / 180;
-    const lng2Rad = (Math.PI * lng2) / 180;
-
-    const dLat = lat2Rad - lat1Rad;
-    const dLng = lng2Rad - lng1Rad;
-    const a =
-      Math.sin(dLat / 2) ** 2 +
-      Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(dLng / 2) ** 2;
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distance = R * c;
-
-    return distance;
-  }
-
   const handleSearch = (e) => {
     e.preventDefault();
     setForm(input);
@@ -96,10 +78,14 @@ function SearchPage() {
         const {
           data: { places },
         } = await axios.post("/search/", form);
+        if (!form.province) {
+          places.sort(() => Math.random() * 10 - 5);
+          return setPlaces(places);
+        }
         const newPlaces = places.filter((place) => {
           const distance = calculateDistance(
-            form.where.location.lat,
-            form.where.location.lng,
+            form.lat,
+            form.lng,
             place.lat,
             place.lng
           );
@@ -108,7 +94,6 @@ function SearchPage() {
         newPlaces.sort(() => Math.random() * 10 - 5);
         setPlaces(newPlaces);
       } catch (err) {
-        console.log(err);
         toast.error(err.response.data.message);
       } finally {
         setIsLoading(false);
@@ -128,6 +113,7 @@ function SearchPage() {
     <div className="flex justify-center py-10 relative">
       {isLoading && <LoadingPage />}
       <SearchBar
+        setSelected={(selected) => setInput({ ...input, ...selected })}
         isStartDateValid={isStartDateValid}
         handleSearch={handleSearch}
         input={input}

@@ -16,7 +16,10 @@ function PlaceItem({ place, onClick }) {
           alt="place"
         />
       </div>
-      <div className="flex-1 pt-5">{place.name}</div>
+      <div className="pt-5 flex-1 flex flex-col gap-4">
+        <div>{place.name}</div>
+        <div>จังหวัด {place.province}</div>
+      </div>
       <div className="self-end pb-5 pr-5">
         <div className="text-fontGray">ราคาเริ่มต้น(ต่อคืน)</div>
         <div>฿{minPrice.toLocaleString("en-Us")}</div>

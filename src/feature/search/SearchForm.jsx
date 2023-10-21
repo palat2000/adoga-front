@@ -30,13 +30,17 @@ function SearchForm() {
           type: null,
           minPrice: 0,
           maxPrice: 30000,
-          where: selected,
+          ...selected,
         });
         navigate("/search-place");
       }}
       className="bg-bgGray relative grid grid-cols-6 gap-3 pt-6 pb-12 px-8 rounded-xl"
     >
-      <SearchMap setSelected={setSelected} />
+      <SearchMap
+        setSelected={setSelected}
+        classNameDiv="col-span-6"
+        classNameInput="px-8 py-4 text-2xl"
+      />
       <DateInput
         isStartDateValid={isStartDateValid}
         form={form}

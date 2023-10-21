@@ -95,26 +95,30 @@ function RoomForm({
             className="hidden"
             type="file"
           />
-          <Button
-            onClick={() => inputRef.current.click()}
-            className="self-start bg-secondary text-white"
-            type="button"
-          >
-            เลือกรูป
-          </Button>
+          {!info && (
+            <Button
+              onClick={() => inputRef.current.click()}
+              className="self-start bg-secondary text-white"
+              type="button"
+            >
+              เลือกรูป
+            </Button>
+          )}
           {errorMessage?.file && <ErrorMessage text={errorMessage.file} />}
         </div>
-        {file && (
+        {(file || info?.images[0]) && (
           <div className="relative self-start">
-            <span
-              onClick={() => setFile(null)}
-              className="absolute right-2 text-lg font-bold cursor-pointer"
-            >
-              x
-            </span>
+            {!info && (
+              <span
+                onClick={() => setFile(null)}
+                className="absolute right-2 text-lg font-bold cursor-pointer"
+              >
+                x
+              </span>
+            )}
             <img
               className="h-[200px] aspect-auto"
-              src={URL.createObjectURL(file)}
+              src={info?.images[0]?.image || URL.createObjectURL(file)}
               alt="place"
             />
           </div>

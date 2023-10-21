@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import SearchForm from "../feature/search/SearchForm";
@@ -10,11 +11,14 @@ import {
   CONDO_APARTMENT,
   VACATION_HOME,
 } from "../config/constants";
-import { useEffect } from "react";
+import hotelPic from "/marten-bjork-n_IKQDCyrG0-unsplash.jpg";
+import villaPic from "/webaliser-_TPTXZd9mOo-unsplash.jpg";
+import condoApartmentPic from "/agustin-lara-iKVqC5rvv9s-unsplash.jpg";
+import vacationHomePic from "/cara-fuller-BeHRkALwXIw-unsplash.jpg";
 
 function HomePage() {
   const { user } = useAuth();
-  const { setForm, form } = useSearch();
+  const { setForm, form, setAddress } = useSearch();
 
   useEffect(() => {
     setForm({
@@ -27,6 +31,7 @@ function HomePage() {
       maxPrice: 30000,
       search: null,
     });
+    setAddress(null);
   }, []);
 
   return (
@@ -54,25 +59,33 @@ function HomePage() {
             onClick={() => setForm({ ...form, type: HOTEL })}
             to="search-place?type=HOTEL"
           >
-            <TypeSearch type="โรงแรม" />
+            <TypeSearch src={hotelPic} alt="Hotel" type="โรงแรม" />
           </Link>
           <Link
             onClick={() => setForm({ ...form, type: VILLA })}
             to="search-place?type=VILLA"
           >
-            <TypeSearch type="วิลลา" />
+            <TypeSearch src={villaPic} alt="Villa" type="วิลลา" />
           </Link>
           <Link
             onClick={() => setForm({ ...form, type: VACATION_HOME })}
             to="search-place?type=VACATION_HOME"
           >
-            <TypeSearch type="บ้านพักตากอากาศ" />
+            <TypeSearch
+              src={vacationHomePic}
+              alt="Vacation Home"
+              type="บ้านพักตากอากาศ"
+            />
           </Link>
           <Link
             onClick={() => setForm({ ...form, type: CONDO_APARTMENT })}
             to="search-place?type=CONDO_APARTMENT"
           >
-            <TypeSearch type="คอนโด/อพาร์ตเมนต์" />
+            <TypeSearch
+              src={condoApartmentPic}
+              alt="Condo/Apartment"
+              type="คอนโด/อพาร์ตเมนต์"
+            />
           </Link>
         </div>
       </div>

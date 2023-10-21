@@ -52,7 +52,7 @@ function PlacePage() {
   };
 
   useEffect(() => {
-    if (isMountingRef.current) {
+    if (isMountingRef.current && isStartDateValid()) {
       const id = setTimeout(() => getPlaceById(), 3000);
       return () => clearTimeout(id);
     }
@@ -70,6 +70,7 @@ function PlacePage() {
     <div className="relative flex justify-center pt-36 pb-16">
       {isLoading && <LoadingPage />}
       <SearchBar
+        isPlacePage={true}
         isStartDateValid={isStartDateValid}
         handleSearch={handleSearch}
         input={form}
@@ -106,7 +107,13 @@ function PlacePage() {
         )}
         <div className="flex flex-col items-center gap-4">
           {place.rooms &&
-            place.rooms.map((room) => <Room room={room} key={room?.id} />)}
+            place.rooms.map((room) => (
+              <Room
+                isStartDateValid={isStartDateValid}
+                room={room}
+                key={room.id}
+              />
+            ))}
         </div>
       </div>
     </div>

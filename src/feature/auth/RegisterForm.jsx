@@ -1,23 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Joi from "joi";
 import { toast } from "react-toastify";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import useAuth from "../../hooks/use-auth";
 import Loading from "../../components/Loading";
 import validate from "../../utils/validate";
-
-const registerSchema = Joi.object({
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required(),
-  email: Joi.string().email({ tlds: false }).required(),
-  password: Joi.string()
-    .pattern(/^[a-zA-Z0-9]{6,30}$/)
-    .trim()
-    .required(),
-  confirmPassword: Joi.string().valid(Joi.ref("password")).trim().required(),
-});
+import { registerSchema } from "../../validation/formValidate";
 
 function RegisterForm() {
   const [input, setInput] = useState({

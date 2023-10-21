@@ -1,21 +1,32 @@
 import { DatePicker } from "@mui/x-date-pickers";
 import SmallTotalPeopleInput from "./SmallTotalPeopleInput";
+import SearchMap from "../map/SearchMap";
+import useGoogle from "../../hooks/use-google";
+import LoadingPage from "../../components/LoadingPage";
 
 function SearchBar({
+  setSelected,
   handleSearch,
   input,
   increase,
   decrease,
   setInput,
   isStartDateValid,
+  isPlacePage,
 }) {
+  const { isLoaded } = useGoogle();
+
+  if (!isLoaded) return <LoadingPage />;
+
   return (
     <div className=" absolute top-0 left-0 right-0 bg-darkBlue justify-center py-2">
       <form
         onSubmit={handleSearch}
         className="flex gap-5 justify-center items-center"
       >
-        <input className="outline-none px-4 py-2 rounded-xl" type="text" />
+        {!isPlacePage && (
+          <SearchMap setSelected={setSelected} classNameInput="px-4 py-2" />
+        )}
         <div
           className={`bg-white rounded-xl py-2 px-2 ${
             !isStartDateValid() && "border border-red-500"

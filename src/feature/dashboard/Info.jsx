@@ -53,6 +53,12 @@ function Info() {
           <div>{user.mobile}</div>
         </div>
       </Frame>
+      <Frame>
+        <div className="flex flex-col gap-2 flex-1">
+          <div>จังหวัด</div>
+          <div>{user.province}</div>
+        </div>
+      </Frame>
       <Frame className="flex justify-between items-center transition-all">
         {!isOpen ? (
           <>

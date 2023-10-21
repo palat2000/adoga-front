@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Joi from "joi";
 import { toast } from "react-toastify";
 import Button from "../../components/Button";
 import Frame from "../../components/Frame";
@@ -8,14 +7,7 @@ import RoomForm from "./RoomForm";
 import axios from "../../config/axios";
 import validate from "../../utils/validate";
 import createFormData from "../../utils/formData";
-
-const roomSchema = Joi.object({
-  maximumNumberPeople: Joi.number().required(),
-  name: Joi.string().required(),
-  desc: Joi.string().required(),
-  price: Joi.number().required(),
-  totalRoomCount: Joi.number().required(),
-});
+import { roomSchema } from "../../validation/formValidate";
 
 function ManageRoom({ myRooms, setMyRooms }) {
   const [isOpen, setIsOpen] = useState(false);

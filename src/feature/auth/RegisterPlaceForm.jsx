@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Joi from "joi";
 import { toast } from "react-toastify";
 import Loading from "../../components/Loading";
 import Button from "../../components/Button";
@@ -11,25 +10,8 @@ import useAuth from "../../hooks/use-auth";
 import validate from "../../utils/validate";
 import PictureForm from "./PictureForm";
 import createFormData from "../../utils/formData";
-
-const registerPlaceSchema = Joi.object({
-  name: Joi.string().trim().required(),
-  type: Joi.string().required(),
-  email: Joi.string().email({ tlds: false }).required(),
-  mobile: Joi.string()
-    .pattern(/^[0-9]{10}$/)
-    .required(),
-  password: Joi.string()
-    .pattern(/^[a-zA-Z0-9]{6,30}$/)
-    .required(),
-  confirmPassword: Joi.string()
-    .valid(Joi.ref("password"))
-    .trim()
-    .required()
-    .strip(),
-  lat: Joi.number().required(),
-  lng: Joi.number().required(),
-});
+import useGoogle from "../../hooks/use-google";
+import { registerPlaceSchema } from "../../validation/formValidate";
 
 function RegisterPlaceForm() {
   const [input, setInput] = useState({
@@ -47,11 +29,32 @@ function RegisterPlaceForm() {
   const [selected, setSelected] = useState(null);
   const navigate = useNavigate();
 
+  const { getGeocode } = useGoogle();
+
   const { registerPlace } = useAuth();
 
-  const handleClick = (e) => {
-    setSelected(null);
-    setClicked({ lat: e.latLng.lat(), lng: e.latLng.lng() });
+  const handleClick = async (e) => {
+    try {
+      setSelected(null);
+      const res = await getGeocode({
+        location: { lat: e.latLng.lat(), lng: e.latLng.lng() },
+      });
+      const location = res[0].address_components.filter(
+        (el) => el.types[0] === "administrative_area_level_1"
+      );
+      const province =
+        location[0].long_name === "Krung Thep Maha Nakhon" ||
+        location[0].long_name === "กรุงเทพมหานคร"
+          ? "Bangkok"
+          : location[0].long_name;
+      setClicked({
+        province,
+        lat: e.latLng.lat(),
+        lng: e.latLng.lng(),
+      });
+    } catch (err) {
+      toast.error(err);
+    }
   };
 
   const handleChange = (e) => {

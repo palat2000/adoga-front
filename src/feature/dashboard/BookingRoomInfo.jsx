@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import BookInfoItem from "./BookInfoItem";
 import axios from "../../config/axios";
-function BookInfo() {
+function BookingRoomInfo() {
   const [allBooking, setAllBooking] = useState([]);
   const [selected, setSelected] = useState(null);
 
@@ -13,7 +13,6 @@ function BookInfo() {
           data: { placeBooking },
         } = await axios.get("/manage/place-booking");
         setAllBooking(placeBooking);
-        console.log(placeBooking);
       } catch (err) {
         toast.error(err.response.data.message);
       }
@@ -35,4 +34,4 @@ function BookInfo() {
   );
 }
 
-export default BookInfo;
+export default BookingRoomInfo;

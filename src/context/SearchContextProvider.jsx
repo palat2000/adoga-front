@@ -12,8 +12,12 @@ function SearchContextProvider({ children }) {
     type: null,
     minPrice: 0,
     maxPrice: 30000,
-    search: null,
+    province: null,
+    lat: null,
+    lng: null,
   });
+
+  const [address, setAddress] = useState(null);
 
   const increase = (where) => {
     setForm({ ...form, [where]: form[where] + 1 });
@@ -24,7 +28,9 @@ function SearchContextProvider({ children }) {
   };
 
   return (
-    <SearchContext.Provider value={{ form, setForm, increase, decrease }}>
+    <SearchContext.Provider
+      value={{ setAddress, address, form, setForm, increase, decrease }}
+    >
       {children}
     </SearchContext.Provider>
   );

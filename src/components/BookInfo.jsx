@@ -11,7 +11,6 @@ function BookInfo({
 }) {
   return (
     <div className="border bg-white w-[] rounded-sm shadow flex gap-6 text-xl">
-      {/* {isOpenModal && } */}
       <div className="w-[200px] h-[200px] bg-bgGray">
         <img className="w-full h-full" src={room.images[0]?.image} alt="room" />
       </div>
