@@ -3,7 +3,7 @@ import Button from "../../components/Button";
 import Loading from "../../components/Loading";
 import Input from "../../components/Input";
 
-function LoginForm({ isLoading, handleSubmit, isFail, classButton }) {
+function LoginForm({ isLoading, handleSubmit, classButton }) {
   const [input, setInput] = useState({ mobileOrEmail: "", password: "" });
 
   const handleChange = (e) => {
@@ -35,9 +35,6 @@ function LoginForm({ isLoading, handleSubmit, isFail, classButton }) {
             id="password"
             text="รหัสผ่าน"
           />
-          {isFail && (
-            <span className="text-xs text-red-500">ข้อมูลผู้ใช้ไม่ถูกต้อง</span>
-          )}
         </div>
         <Button
           className={`bg-primary text-white hover:opacity-80 transition-all ${classButton}`}

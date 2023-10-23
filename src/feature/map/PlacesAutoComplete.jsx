@@ -50,7 +50,7 @@ function PlacesAutoComplete({ setSelected, setClicked, validateMessage }) {
       <div className="z-30 relative flex flex-col">
         <input
           className={`outline-none px-4 py-1 border border-gray-300 rounded-xs ${
-            validateMessage?.where?.location?.lat && "border-red-300"
+            validateMessage.lat && "border-red-300"
           }`}
           placeholder="เลือกสถานที่"
           type="text"
@@ -63,7 +63,7 @@ function PlacesAutoComplete({ setSelected, setClicked, validateMessage }) {
           </ul>
         )}
       </div>
-      {validateMessage?.where?.location?.lat && (
+      {validateMessage.lat && (
         <span className="text-red-500 text-xs">กรุณาเลือกที่อยู่ที่พัก</span>
       )}
     </>

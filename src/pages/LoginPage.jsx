@@ -9,18 +9,15 @@ import useAuth from "../hooks/use-auth";
 function LoginPage() {
   const [isloginPlace, setIsLoginPlace] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isFail, setIsfail] = useState(false);
   const navigate = useNavigate();
   const { login, loginPlace } = useAuth();
 
   const handleLogin = async (input) => {
     try {
-      setIsfail(false);
       setIsLoading(true);
       await login(input);
       navigate("/");
     } catch (err) {
-      setIsfail(true);
       toast.error(err.response.data.message);
     } finally {
       setIsLoading(false);
@@ -29,12 +26,10 @@ function LoginPage() {
 
   const handleLoginPlace = async (input) => {
     try {
-      setIsfail(false);
       setIsLoading(true);
       await loginPlace(input);
       navigate("/user-place");
     } catch (err) {
-      setIsfail(true);
       toast.error(err.response.data.message);
     } finally {
       setIsLoading(false);
@@ -52,14 +47,12 @@ function LoginPage() {
         </p>
         {!isloginPlace ? (
           <LoginForm
-            isFail={isFail}
             isLoading={isLoading}
             handleSubmit={handleLogin}
             classButton="bg-primary"
           />
         ) : (
           <LoginForm
-            isFail={isFail}
             isLoading={isLoading}
             handleSubmit={handleLoginPlace}
             classButton="bg-secondary"
