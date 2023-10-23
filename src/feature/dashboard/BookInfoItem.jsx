@@ -16,7 +16,7 @@ function BookInfoItem({ room, setSelected, selected }) {
         <Picture src={room.images[0].image} />
         <div className="flex-1 flex flex-col gap-2">
           <div>{room.name}</div>
-          <div>มีการจอง {amountBookRoom} ห้อง</div>
+          <div>มี {amountBookRoom} การจอง</div>
         </div>
       </div>
       {selected === room.id &&

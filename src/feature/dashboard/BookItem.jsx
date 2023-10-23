@@ -15,7 +15,7 @@ function BookItem({ book }) {
         <div>{`จองวันที่ ${start.getDate()} ${
           MONTH[start.getMonth()]
         } ${start.getFullYear()}`}</div>
-        <div>{`จองวันที่ ${end.getDate()} ${
+        <div>{`ถึงวันที่ ${end.getDate()} ${
           MONTH[end.getMonth()]
         } ${end.getFullYear()}`}</div>
         <div>จำนวน {book.amountRoom} ห้อง</div>
