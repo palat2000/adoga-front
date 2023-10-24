@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
 import IconProfile from "../components/IconProfile";
 import EditAction from "../feature/dashboard/EditAction";
 import Frame from "../components/Frame";
@@ -16,7 +15,6 @@ import AddMobileForm from "../feature/dashboard/AddMobileForm";
 import EditUserForm from "../feature/dashboard/EditUserForm";
 
 function UserPage() {
-  const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isAdd, setIsAdd] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -24,62 +22,41 @@ function UserPage() {
   const { user, setUser } = useAuth();
 
   const handleChangePassword = async (input) => {
-    try {
-      setIsLoading(true);
-      setErrorMessage({});
-      const res = validate(changePasswordSchema, input);
-      if (res) {
-        return setErrorMessage(res);
-      }
-      await axios.patch("/manage/change-password/user", input);
-      setIsOpen(false);
-    } catch (err) {
-      toast.error(err.response.data.message);
-    } finally {
-      setIsLoading(false);
+    setErrorMessage({});
+    const res = validate(changePasswordSchema, input);
+    if (res) {
+      return setErrorMessage(res);
     }
+    await axios.patch("/manage/change-password/user", input);
+    setIsOpen(false);
   };
 
   const handleAddMobile = async (input) => {
-    try {
-      setIsLoading(true);
-      setErrorMessage({});
-      const { error } = mobileSchema.validate(input);
-      if (error) {
-        return setErrorMessage({
-          mobile: error.details[0].message,
-        });
-      }
-      await axios.patch("/manage/add-mobile", { mobile: input });
-      setUser({ ...user, mobile: input });
-      setIsAdd(false);
-    } catch (err) {
-      toast.error(err.response.data.message);
-    } finally {
-      setIsLoading(false);
+    setErrorMessage({});
+    const { error } = mobileSchema.validate(input);
+    if (error) {
+      return setErrorMessage({
+        mobile: error.details[0].message,
+      });
     }
+    await axios.patch("/manage/add-mobile", { mobile: input });
+    setUser({ ...user, mobile: input });
+    setIsAdd(false);
   };
 
   const handleEditUser = async (input) => {
-    try {
-      setIsLoading(true);
-      setErrorMessage({});
-      const res = validate(profileSchema, input);
-      if (res) {
-        return setErrorMessage(res);
-      }
-      await axios.patch("/manage/edit-profile", input);
-      setUser({
-        ...user,
-        firstName: input.firstName,
-        lastName: input.lastName,
-      });
-      setIsEdit(false);
-    } catch (err) {
-      toast.error(err.response.data.message);
-    } finally {
-      setIsLoading(false);
+    setErrorMessage({});
+    const res = validate(profileSchema, input);
+    if (res) {
+      return setErrorMessage(res);
     }
+    await axios.patch("/manage/edit-profile", input);
+    setUser({
+      ...user,
+      firstName: input.firstName,
+      lastName: input.lastName,
+    });
+    setIsEdit(false);
   };
 
   return (
@@ -89,7 +66,6 @@ function UserPage() {
           {isEdit ? (
             <EditUserForm
               handleSubmit={handleEditUser}
-              isLoading={isLoading}
               err={errorMessage}
               setIsEdit={setIsEdit}
             />
@@ -117,7 +93,6 @@ function UserPage() {
         <Frame className="flex items-center">
           {isAdd ? (
             <AddMobileForm
-              isLoading={isLoading}
               err={errorMessage.mobile}
               handleSubmit={handleAddMobile}
               setIsEdit={setIsAdd}
@@ -140,7 +115,6 @@ function UserPage() {
           {isOpen ? (
             <UpdatePasswordForm
               handleSubmit={handleChangePassword}
-              isLoading={isLoading}
               errorMessage={errorMessage}
               setIsOpen={setIsOpen}
               who="user"

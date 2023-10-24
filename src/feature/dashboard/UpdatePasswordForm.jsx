@@ -2,33 +2,36 @@ import { useState } from "react";
 import Loading from "../../components/Loading";
 import ButtonForm from "./ButtonForm";
 import Input from "../../components/Input";
+import { toast } from "react-toastify";
 
-function UpdatePasswordForm({
-  handleSubmit,
-  errorMessage,
-  isLoading,
-  setIsOpen,
-  who,
-}) {
+function UpdatePasswordForm({ handleSubmit, errorMessage, setIsOpen, who }) {
   const [input, setInput] = useState({
     password: "",
     newPassword: "",
     confirmNewPassword: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.id]: e.target.value });
   };
+
+  const handleUpdatePassword = async (e) => {
+    try {
+      e.preventDefault();
+      setIsLoading(true);
+      await handleSubmit(input);
+    } catch (err) {
+      toast.error(err.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="relative container w-full lg:w-[50%]">
       {isLoading && <Loading />}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit(input);
-        }}
-        className="flex flex-col gap-2"
-      >
+      <form onSubmit={handleUpdatePassword} className="flex flex-col gap-2">
         <Input
           type="password"
           onChange={handleChange}

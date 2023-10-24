@@ -4,12 +4,12 @@ import ButtonForm from "./ButtonForm";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import Button from "../../components/Button";
+import { toast } from "react-toastify";
 
 function RoomForm({
   errorMessage,
   onClose,
   handleSubmit,
-  isLoading,
   info,
   file,
   setFile,
@@ -23,21 +23,29 @@ function RoomForm({
       totalRoomCount: "",
     }
   );
+  const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef();
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.id]: e.target.value });
   };
+
+  const submit = async (e) => {
+    try {
+      e.preventDefault();
+      setIsLoading(true);
+      await handleSubmit(input);
+    } catch (err) {
+      toast.error(err.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="relative">
       {isLoading && <Loading />}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit(input);
-        }}
-        className="flex flex-col gap-2"
-      >
+      <form onSubmit={submit} className="flex flex-col gap-2">
         <Input
           err={errorMessage?.name}
           onChange={handleChange}

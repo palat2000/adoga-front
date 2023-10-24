@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
 import Button from "../../components/Button";
 import Frame from "../../components/Frame";
 import Room from "./RoomDashboard";
@@ -12,62 +11,47 @@ import { roomSchema } from "../../validation/formValidate";
 function ManageRoom({ myRooms, setMyRooms }) {
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
   const [editId, setEditId] = useState(null);
   const [file, setFile] = useState(null);
 
   const handleSubmit = async (input) => {
-    try {
-      setIsLoading(true);
-      setErrorMessage({});
-      const res = validate(roomSchema, input);
-      if (res) {
-        return setErrorMessage(res);
-      }
-      if (!file) {
-        return setErrorMessage({ file: "โปรดเลือกรูปภาพ" });
-      }
-      const formData = createFormData(input);
-      formData.append("imageRoom", file);
-      const {
-        data: { room },
-      } = await axios.post("/manage/create-room", formData);
-      setMyRooms([room, ...myRooms]);
-      setFile(null);
-      setIsOpen(false);
-    } catch (err) {
-      toast.error(err.response.data.message);
-    } finally {
-      setIsLoading(false);
+    setErrorMessage({});
+    const res = validate(roomSchema, input);
+    if (res) {
+      return setErrorMessage(res);
     }
+    if (!file) {
+      return setErrorMessage({ file: "โปรดเลือกรูปภาพ" });
+    }
+    const formData = createFormData(input);
+    formData.append("imageRoom", file);
+    const {
+      data: { room },
+    } = await axios.post("/manage/create-room", formData);
+    setMyRooms([room, ...myRooms]);
+    setFile(null);
+    setIsOpen(false);
   };
 
   const handleEdit = async (input) => {
-    try {
-      setIsLoading(true);
-      setErrorMessage({});
-      if (input.remaining > input.totalRoomCount) {
-        return setErrorMessage({
-          remaining: "จำนวนห้องคงเหลือไม่สามารถมากกว่าจำนวนห้องทั้งหมดได้",
-        });
-      }
-      if (input.remaining < 0) {
-        return setErrorMessage({
-          remaining: "จำนวนห้องคงเหลือไม่สามารถน้อยกว่า 0",
-        });
-      }
-      const newMyRooms = [...myRooms];
-      const index = newMyRooms.findIndex((room) => room.id === input.id);
-      newMyRooms.splice(index, 1, { ...input });
-      setMyRooms(newMyRooms);
-      delete input.images;
-      await axios.patch(`/manage/update-room/${input.id}`, input);
-      setEditId(null);
-    } catch (err) {
-      toast.error(err.response.data.message);
-    } finally {
-      setIsLoading(false);
+    setErrorMessage({});
+    if (input.remaining > input.totalRoomCount) {
+      return setErrorMessage({
+        remaining: "จำนวนห้องคงเหลือไม่สามารถมากกว่าจำนวนห้องทั้งหมดได้",
+      });
     }
+    if (input.remaining < 0) {
+      return setErrorMessage({
+        remaining: "จำนวนห้องคงเหลือไม่สามารถน้อยกว่า 0",
+      });
+    }
+    const newMyRooms = [...myRooms];
+    const index = newMyRooms.findIndex((room) => room.id === input.id);
+    newMyRooms.splice(index, 1, { ...input });
+    setMyRooms(newMyRooms);
+    delete input.images;
+    await axios.patch(`/manage/update-room/${input.id}`, input);
+    setEditId(null);
   };
 
   return (
@@ -77,7 +61,6 @@ function ManageRoom({ myRooms, setMyRooms }) {
           <RoomForm
             setFile={setFile}
             file={file}
-            isLoading={isLoading}
             onClose={() => {
               setIsOpen(false);
               setErrorMessage({});
